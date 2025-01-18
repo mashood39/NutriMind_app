@@ -10,15 +10,3 @@ const FoodTrackSchema = new mongoose.Schema({
 const FoodTrack = mongoose.model('FoodTrack', FoodTrackSchema)
 
 module.exports = FoodTrack
-
-// const deleteAllEntries = async () => {
-//     try {
-//         const result = await FoodTrack.deleteMany({});
-//         console.log(`Deleted ${result.deletedCount} entries`);
-//         // mongoose.connection.close(); // Close the connection
-//     } catch (error) {
-//         console.error("Error deleting entries:", error);
-//     }
-// };
-
-// deleteAllEntries();
