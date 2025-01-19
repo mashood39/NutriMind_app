@@ -17,6 +17,10 @@ dotenv.config()
 connectDB();
 const app = express()
 app.use(cors())
+app.use(cors({
+    origin: 'https://nutri-mind-app-frontend.vercel.app'
+}));
+
 app.use(express.json())
 app.use('/uploads', express.static('uploads'));
 
@@ -24,11 +28,11 @@ const PORT = process.env.PORT || 4000
 
 // app.use(uservalidation)
 app.use('/api/user', userRoutes)
-app.use('/' , coggleRoutes)
+app.use('/', coggleRoutes)
 app.use('/api/blogs', blogRoutes)
 app.use('/api/quizzes', quizRoutes)
 app.use('/api/submissions', submitQuizRoutes)
-app.use('/api/meal-plans' , mealPlanRoutes)
+app.use('/api/meal-plans', mealPlanRoutes)
 app.use('/api/food-tracks', foodTrackRoutes)
 app.use('/api/activity-tracks', activityTrackRoutes)
 
