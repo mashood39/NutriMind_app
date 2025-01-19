@@ -22,6 +22,9 @@ app.use(cors({
 }));
 
 app.use(express.json())
+app.get("/healthcheck", (req, res) => {
+    res.send("health ok")
+})
 app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 4000
