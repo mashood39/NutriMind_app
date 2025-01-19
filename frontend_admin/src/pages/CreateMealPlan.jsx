@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import api from "../lib/api";
 
 const CreateMealPlan = () => {
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -37,7 +38,7 @@ const CreateMealPlan = () => {
         formData.append("days", JSON.stringify(mealPlan));
 
         try {
-            const response = await axios.post("http://localhost:4000/api/meal-plans", formData, {
+            const response = await api.post("/api/meal-plans", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

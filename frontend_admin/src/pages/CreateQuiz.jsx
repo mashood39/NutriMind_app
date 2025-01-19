@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import api from '../lib/api'
 
 const CreateQuiz = () => {
 
@@ -37,7 +38,7 @@ const CreateQuiz = () => {
         formData.append('questions', JSON.stringify(questions))
 
         try {
-            await axios.post('http://localhost:4000/api/quizzes', formData, {
+            await api.post('/api/quizzes', formData, {
                 headers: { 'Content-type': 'multipart/form-data' }
             })
 
