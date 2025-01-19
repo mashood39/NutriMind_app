@@ -2,6 +2,8 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
+const path = require('path');
+
 const blogRoutes = require('./routes/blogRoutes')
 const quizRoutes = require('./routes/quizRoutes')
 const userRoutes = require('./routes/userRoutes')
@@ -17,6 +19,8 @@ dotenv.config()
 connectDB();
 const app = express()
 app.use(cors());
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(express.json())
 
