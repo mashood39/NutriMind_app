@@ -14,7 +14,7 @@ const activityTrackRoutes = require('./routes/activityTrackRoutes')
 // const uservalidation = require('./middleware/uservalidation')
 
 dotenv.config()
-connectDB();
+await connectDB();
 const app = express()
 app.use(cors({
     origin: 'https://nutri-mind-app-frontend.vercel.app'
