@@ -6,7 +6,7 @@ const createBlog = async (req, res) => {
         const newBlog = new Blog({
             title: req.body.title,
             content: req.body.content,
-            image: `/uploads/blogs/${req.file.filename}`,
+            image: `/uploads/blogs/${req.file.sanitizedFilename}`,
         })
         await newBlog.save();
         res.status(200).json({ message: 'Blog added succesfully' })
