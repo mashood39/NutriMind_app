@@ -1,8 +1,7 @@
 import axios from "axios";
 
 // export const baseURL = "http://localhost:4000";
-// export const baseURL = "https://nutrimindapp.vercel.app/"
-export const baseURL = "https://nutrimind-76defd8rm-mashoodcks-projects.vercel.app"
+export const baseURL = "https://nutrimindapp.vercel.app"
 
 
 const api = axios.create({
