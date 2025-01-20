@@ -3,9 +3,11 @@ const { Quiz } = require("../models/quizModel");
 const createQuiz = async (req, res) => {
     try {
         const { title, questions } = req.body
+        const imageUrl = req.file.path
+
         const newQuiz = new Quiz({
             title,
-            image: `/uploads/quizzes/${req.file.filename}`,
+            image: imageUrl,
             questions: JSON.parse(questions)
         })
         await newQuiz.save();
