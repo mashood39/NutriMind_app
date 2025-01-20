@@ -86,7 +86,7 @@ const ActivityTrackScreen = () => {
 
     return (
         <Layout>
-            <View className="flex-1 bg-gray-100">
+            <View className="flex-1 bg-white p-3">
 
                 {!showInput && (
                     <View className="flex-row justify-end" >
