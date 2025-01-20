@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 const ProfileScreen = ({ navigation }) => {
   return (
     <Layout>
-      <View>
+      <View className="p-3">
         <View className="flex-row items-center mb-8">
           <Image
             source={require('../assets/images/image_1.png')}

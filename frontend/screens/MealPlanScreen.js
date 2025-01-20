@@ -51,7 +51,7 @@ const MealPlanScreen = ({ route }) => {
 
     return (
         <Layout>
-            <ScrollView className="p-2" showsVerticalScrollIndicator={false}>
+            <ScrollView className="p-3" showsVerticalScrollIndicator={false}>
                 {/* Title */}
                 <Text className="text-2xl font-bold text-gray-800 mb-4">{mealPlan.title}</Text>
 

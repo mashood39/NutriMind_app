@@ -1,9 +1,8 @@
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Layout = ({ children }) => {
-
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -11,22 +10,23 @@ const Layout = ({ children }) => {
   const isHomePage = route.name === 'HomeScreen';
 
   return (
-    <View style={styles.container}>
-
-      <View style={styles.header}>
+    <View className="flex-1 mt-5 bg-white">
+      {/* Header */}
+      <View className="flex-row justify-between items-center px-4 py-2 mb-2">
         <View>
           {isHomePage ? (
-            // Show the app icon on the home page
             <Image source={require('../assets/icons/icon_app.png')} />
           ) : (
-            // Show the back button on other pages
             <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Image source={require('../assets/icons/back_icon.png')} style={styles.backIcon} />
+              <Image
+                source={require('../assets/icons/back_icon.png')}
+                className="w-6 h-6"
+              />
             </TouchableOpacity>
           )}
         </View>
 
-        <View style={styles.right}>
+        <View className="flex-row gap-x-2">
           <TouchableOpacity onPress={() => navigation.navigate('SettingScreen')}>
             <Image source={require('../assets/icons/icon_gear.png')} />
           </TouchableOpacity>
@@ -36,74 +36,27 @@ const Layout = ({ children }) => {
         </View>
       </View>
 
-      <View style={styles.content}>
-        {children}
-      </View>
+      {/* Content */}
+      <View className="flex-1">{children}</View>
 
-      <View style={styles.footer}>
+      {/* Footer */}
+      <View className="h-16 flex-row justify-around items-center border-t border-gray-300">
         <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-          <Image source={require('../assets/icons/icon_home.png')} style={styles.image1} />
-        </TouchableOpacity >
+          <Image
+            source={require('../assets/icons/icon_home.png')}
+            className="w-7 h-7"
+          />
+        </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
-          <Image source={require('../assets/icons/icon_profile.png')} style={styles.image2} />
+          <Image
+            source={require('../assets/icons/icon_profile.png')}
+            className="w-7 h-7"
+          />
         </TouchableOpacity>
       </View>
-
     </View>
-  )
-}
+  );
+};
 
-export default Layout
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 20,
-    // backgroundColor: '#ffffff'
-    // padding: 15,
-
-  },
-  header: {
-    marginBottom: 10,
-    padding: 15,
-    height: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    // backgroundColor: 'red'
-
-  },
-  right: {
-    flexDirection: 'row',
-    gap: 10
-  },
-
-  content: {
-    flex: 1,
-    paddingHorizontal: 15,
-    paddingTop: 15,
-    // padding: 15,
-  },
-  footer: {
-    height: 70,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    // position: 'absolute', // Fixes the footer to the bottom
-    bottom: 0,
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    // gap: 20,
-    borderTopWidth: 0.5, // Adds a border above the footer
-    borderTopColor: '#e0e0e0',
-    // backgroundColor: '#ffffff',
-  },
-  image1: {
-    width: 30,
-    height: 30,
-  },
-  image2: {
-    width: 30,
-    height: 30,
-  }
-})
+export default Layout;

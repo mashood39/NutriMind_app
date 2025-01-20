@@ -128,7 +128,7 @@ const QuizScreen = ({ route }) => {
 
     return (
         <Layout>
-            <ScrollView className="flex-1 bg-gray-100 p-4">
+            <ScrollView className="flex-1 bg-white p-3">
                 <Text className="text-lg font-medium mb-4">{question.question}</Text>
                 {question.options.map((option, index) => {
                     const isCorrect = index === question.correctAnswer;

@@ -64,7 +64,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <Layout>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} className="p-3">
 
         {/* Banner section */}
         <View className="mb-4 relative">

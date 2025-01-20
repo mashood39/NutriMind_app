@@ -7,7 +7,7 @@ const HomeCard = ({ title, image, onPress }) => {
     <View style={styles.container}>
       <TouchableOpacity style={styles.card} onPress={onPress}>
         <Image
-          source={{ uri: `${baseURL}${image}` }}
+          source={{ uri: image }}
           style={styles.cardImage}
         />
         <Text style={styles.cardTitle}>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css';
-import axios from 'axios';
 import api from '../lib/api';
+import axios from 'axios';
 
 const CreateBlog = () => {
 
@@ -23,8 +23,11 @@ const CreateBlog = () => {
         formData.append('content', content)
 
         try {
-            // await axios.post('http://localhost:4000/api/blogs', formData)
-            await api.post('/api/blogs' , formData)
+            await api.post('/api/blogs', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             alert('Blog created succesfully')
             setTitle('')
             setContent('')
