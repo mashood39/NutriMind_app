@@ -3,11 +3,16 @@ const Blog = require("../models/blogModel");
 //create a blog
 const createBlog = async (req, res) => {
     try {
+        const { title, content } = req.body
+        const imageUrl = req.file.path
+
         const newBlog = new Blog({
-            title: req.body.title,
-            content: req.body.content,
-            image: `/uploads/blogs/${req.file.sanitizedFilename}`,
-        })
+            title,
+            content,
+            image: imageUrl,
+            createdAt: new Date(),
+        });
+
         await newBlog.save();
         res.status(200).json({ message: 'Blog added succesfully' })
     } catch (error) {

@@ -1,17 +1,19 @@
 const express = require('express');
 const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('../config/cloudinary')
+
 const { createBlog, getBlogs, getBlog } = require('../controllers/blogController');
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads/blogs')
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'blogs', // Folder in Cloudinary
+        // format: async (req, file) => 'png', // Optional: Specify file format
+        public_id: (req, file) => Date.now() + '-' + file.originalname.replace(/\s+/g, '-'),
     },
-    filename: (req, file, cb) => {
-        const sanitizedFilename = file.originalname.replace(/\s+/g, '-');
-        cb(null, Date.now() + '-' + sanitizedFilename);
-    }
 })
 
 const upload = multer({ storage })

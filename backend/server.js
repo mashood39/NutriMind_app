@@ -1,8 +1,7 @@
 const express = require('express')
 const cors = require('cors')
-const dotenv = require('dotenv')
+require('dotenv').config();
 const connectDB = require('./config/db')
-const path = require('path');
 
 const blogRoutes = require('./routes/blogRoutes')
 const quizRoutes = require('./routes/quizRoutes')
@@ -15,12 +14,10 @@ const activityTrackRoutes = require('./routes/activityTrackRoutes')
 
 // const uservalidation = require('./middleware/uservalidation')
 
-dotenv.config()
+
 connectDB();
 const app = express()
 app.use(cors());
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(express.json())
 
@@ -28,7 +25,7 @@ app.get("/", (req, res) => {
     res.send("backend running ok")
 })
 
-app.use('/uploads', express.static('uploads'));
+// app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 4000
 
