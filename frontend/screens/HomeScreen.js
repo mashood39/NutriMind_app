@@ -69,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
         {/* Banner section */}
         <View className="mb-4 relative">
           <Image source={require('../assets/images/image_1.png')} className="w-full h-40 rounded-lg" />
-          <View className="absolute top-8 left-14">
+          <View className="absolute top-8 left-16">
             <Text className="text-2xl font-bold text-white">The world of nutrition</Text>
             <TouchableOpacity onPress={() => navigation.navigate('DiscoverScreen')}>
               <Text className="mt-2 text-white text-lg bg-blue-400 px-6 py-2 rounded-full">
