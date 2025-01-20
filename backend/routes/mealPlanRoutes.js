@@ -1,16 +1,18 @@
 const express = require('express');
 const multer = require('multer')
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('../config/cloudinary')
+
 const { createMealPlan, getMealPlans, getMealPlan } = require('../controllers/mealPlanController');
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads/mealPlans')
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'mealPlans', // Folder in Cloudinary
+        public_id: (req, file) => Date.now() + '-' + file.originalname.replace(/\s+/g, '-'),
     },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname)
-    }
 })
 
 const upload = multer({ storage })

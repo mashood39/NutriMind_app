@@ -2,11 +2,15 @@ const MealPlan = require("../models/mealPlanModel");
 
 createMealPlan = async (req, res) => {
     try {
+        const { title, content } = req.body
+        const imageUrl = req.file.path
+
         const newMealPlan = new MealPlan({
-            title: req.body.title,
-            image: `/uploads/mealPlans/${req.file.filename}`,
+            title,
+            image: imageUrl,
             days: JSON.parse(req.body.days)
         })
+
         await newMealPlan.save();
         res.status(201).json({ message: 'Meal Plan added successfully!' });
     } catch (error) {
