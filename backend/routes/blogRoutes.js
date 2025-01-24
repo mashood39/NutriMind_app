@@ -3,7 +3,7 @@ const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('../config/cloudinary')
 
-const { createBlog, getBlogs, getBlog } = require('../controllers/blogController');
+const { createBlog, getBlogs, getBlog, deleteBlog } = require('../controllers/blogController');
 
 const router = express.Router();
 
@@ -26,5 +26,7 @@ router.get('/', getBlogs)
 
 // get a single blog by id
 router.get('/:id', getBlog)
+
+router.delete('/:id', deleteBlog)
 
 module.exports = router;
