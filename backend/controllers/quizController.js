@@ -42,8 +42,20 @@ const getQuiz = async (req, res) => {
     }
 };
 
+const deleteQuiz = async (req, res) => {
+    const { id } = req.params
+    try {
+        await Quiz.findByIdAndDelete(id);
+        return res.status(200).json({ message: "Quiz deleted succesfully" })
+    } catch (error) {
+        console.error("error in deleting the quiz", error.messaage)
+        return res.status(500).json({ message: error.messaage })
+    }
+}
+
 module.exports = {
     createQuiz,
     getQuizzes,
     getQuiz,
+    deleteQuiz
 }

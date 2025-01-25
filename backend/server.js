@@ -14,7 +14,6 @@ const activityTrackRoutes = require('./routes/activityTrackRoutes')
 
 // const uservalidation = require('./middleware/uservalidation')
 
-
 connectDB();
 const app = express()
 app.use(cors());

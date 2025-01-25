@@ -15,6 +15,4 @@ const fetchDiagrams = async (req, res) => {
     }
 }
 
-
-
 module.exports = { fetchDiagrams }
