@@ -33,7 +33,7 @@ const MealPlanScreen = ({ route }) => {
     if (loading) {
         return (
             <Layout>
-                <ActivityIndicator size="large" color="#00BFFF" className="mt-10" />
+                <ActivityIndicator size="large" color="#4a90e2" />
             </Layout>
         );
     }
@@ -73,8 +73,8 @@ const MealPlanScreen = ({ route }) => {
                     <View className="space-y-4">
                         {selectedDayPlan.meals.map((mealSlot, slotIndex) => (
                             <View key={slotIndex} className="border border-gray-300 rounded-lg mb-4">
-                                <View className="bg-red-200 rounded-t-lg">
-                                    <Text className="text-lg font-semibold text-gray-600 p-2">{mealSlot.time}</Text>
+                                <View className="bg-blue-400 rounded-t-lg">
+                                    <Text className="text-lg font-semibold text-white p-2">{mealSlot.time}</Text>
                                 </View>
                                 {mealSlot.meals.map((meal, mealIndex) => (
                                     <View key={mealIndex} className="flex-row justify-between mb-2 p-2">

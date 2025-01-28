@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, ScrollView, Image, ActivityIndicator } from 'react-native';
+import { Text, ScrollView, Image, ActivityIndicator, View } from 'react-native';
 import Layout from '../components/Layout';
 import RenderHTML from 'react-native-render-html';
 import api from '../lib/api';
@@ -27,8 +27,7 @@ const BlogScreen = ({ route }) => {
   if (loading) {
     return (
       <Layout>
-        <ActivityIndicator size="large" color="#000" className="mb-2" />
-        <Text className="text-center text-base text-gray-500">Loading...</Text>
+        <ActivityIndicator size="large" color="#4a90e2" className="mb-2" />
       </Layout>
     );
   }
@@ -43,18 +42,20 @@ const BlogScreen = ({ route }) => {
 
   return (
     <Layout>
-      <ScrollView className="flex-1 p-3">
-        <Text className="text-2xl font-bold mb-4 text-gray-900">{blog.title}</Text>
-        <Image
-          source={{ uri: blog.image }}
-          className="w-full h-48 mb-4"
-          resizeMode="cover"
-        />
-        <RenderHTML
-          contentWidth={400}
-          source={{ html: blog.content }}
-          tagsStyles={tagsStyles}
-        />
+      <ScrollView className="flex-1 px-4">
+        <View className="pb-10">
+          <Text className="text-2xl font-bold mb-4 text-gray-900">{blog.title}</Text>
+          <Image
+            source={{ uri: blog.image }}
+            className="w-full h-48 mb-4"
+            resizeMode="cover"
+          />
+          <RenderHTML
+            contentWidth={400}
+            source={{ html: blog.content }}
+            tagsStyles={tagsStyles}
+          />
+        </View>
       </ScrollView>
     </Layout>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, FlatList, Alert, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, FlatList, Alert, Platform, ActivityIndicator } from 'react-native';
 import Layout from '../components/Layout';
 import api from '../lib/api';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -16,12 +16,14 @@ const FoodTrackScreen = () => {
     });
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
+    const [loading, setLoading] = useState(true)
 
     const fetchFoodTrackData = async () => {
         try {
             const response = await api.get('/api/food-tracks')
             const data = response.data.foodTracks
             setFoodData(data)
+            setLoading(false)
         } catch (error) {
             console.error("error in fetching food track data", error)
         }
@@ -48,17 +50,17 @@ const FoodTrackScreen = () => {
     };
 
     const handleSave = async () => {
-
+        setShowInput(false)
+        setLoading(true)
         try {
-
-            const { date,time, food } = formData;
+            const { date, time, food } = formData;
 
             if (!date || !food || !time) {
                 Alert.alert("Date, time and food are required!");
                 return;
             }
 
-            const response = await api.post('/api/food-tracks', formData)
+            await api.post('/api/food-tracks', formData)
 
             setFormData({
                 date: '',
@@ -66,7 +68,6 @@ const FoodTrackScreen = () => {
                 food: '',
                 calorie: ''
             })
-            setShowInput(false)
             fetchFoodTrackData();
         } catch (error) {
             console.error("error in saving the data", error.message)
@@ -75,12 +76,14 @@ const FoodTrackScreen = () => {
     };
 
     const deleteFoodTrack = async (id) => {
+        setLoading(true)
         try {
             const response = await api.delete(`/api/food-tracks/${id}`)
             console.log(response)
             if (response.status === 200) {
                 setFoodData((prevData) => prevData.filter((item) => item._id !== id))
             }
+            setLoading(false)
         } catch (error) {
             console.error("error in deleting the food track", error)
         }
@@ -88,15 +91,15 @@ const FoodTrackScreen = () => {
 
     return (
         <Layout>
-            <View className="flex-1 bg-white p-3">
+            <View className="flex-1 bg-white px-4">
 
                 {!showInput && (
                     <View className="flex-row justify-end" >
                         <TouchableOpacity
-                            className=" rounded-md p-2 w-10  bg-green-400 mb-4"
+                            className=" rounded-md p-1 bg-green-400 mb-4"
                             onPress={() => setShowInput(true)}
                         >
-                            <Text className="text-white text-center font-bold">+</Text>
+                            <Icon name="add" size={20} color="white" className="center" />
                         </TouchableOpacity>
                     </View>
                 )}
@@ -168,58 +171,37 @@ const FoodTrackScreen = () => {
                     <Text className="font-bold text-center">Food</Text>
                     <Text className="font-bold text-center mr-14">Qty</Text>
                 </View>
-                {foodData.length === 0 ? (
-                    <View className="mt-2">
-                        <Text className="p-2 border border-gray-300 text-center rounded-md">Food track is empty. Please add a item</Text>
-                    </View>
+
+                {loading ? (
+                    <ActivityIndicator size="large" color="#4a90e2" className="mt-2" />
                 ) : (
-                    // <FlatList
-                    //     className="mt-4"
-                    //     data={foodData}
-                    //     // keyExtractor={(item, index) => index.toString()}
-                    //     keyExtractor={(item) => item._id.toString()}
-                    //     showsVerticalScrollIndicator={false}
-                    //     renderItem={({ item }) => (
-                    //         <View className="flex-row justify-between bg-white p-2 border border-gray-200 rounded-md">
-                    //             <Text>{item.date}</Text>
-                    //             <Text>{item.time}</Text>
-                    //             <Text>{item.food}</Text>
-                    //             <Text>{item.calorie}</Text>
-                    //             <TouchableOpacity onPress={() => deleteFoodTrack(item._id)}>
-                    //                 <Icon name="delete" size={24} color="red" />
-                    //             </TouchableOpacity>
-                    //         </View>
-                    //     )}
-                    //     ListHeaderComponent={
-                    //         foodData.length > 0 && (
-                    //             <View className="flex-row justify-around bg-gray-200 p-2 border border-gray-300 rounded-md">
-                    //                 <Text className="font-bold">Date</Text>
-                    //                 <Text className="font-bold">Time</Text>
-                    //                 <Text className="font-bold">Food</Text>
-                    //                 <Text className="font-bold">Qty</Text>
-                    //             </View>
-                    //         )
-                    //     }
-                    // />
-
-                    foodData.map((item) => (
-                        <View
-                            key={item._id}
-                            className="flex-row bg-white p-2 border border-gray-200 rounded-md"
-                        >
-                            <Text className="mr-6">{item.date}</Text>
-                            <Text className="text-center mr-4">{item.time}</Text>
-                            <Text className="flex-1 text-center">{item.food}</Text>
-                            <Text className="flex-1 text-center">{item.calorie}</Text>
-                            <View className="">
-                                <TouchableOpacity onPress={() => deleteFoodTrack(item._id)}>
-                                    <Icon name="delete" size={25} color="red" />
-                                </TouchableOpacity>
-                            </View>
+                    foodData.length === 0 ? (
+                        <View className="mt-2">
+                            <Text className="p-2 border border-gray-300 text-center rounded-md">
+                                Food track is empty. Please add a item
+                            </Text>
                         </View>
-                    ))
+                    ) : (
 
+                        foodData.map((item) => (
+                            <View
+                                key={item._id}
+                                className="flex-row bg-white p-2 border border-gray-200 rounded-md"
+                            >
+                                <Text className="mr-6">{item.date}</Text>
+                                <Text className="text-center mr-4">{item.time}</Text>
+                                <Text className="flex-1 text-center">{item.food}</Text>
+                                <Text className="flex-1 text-center">{item.calorie}</Text>
+                                <View className="">
+                                    <TouchableOpacity onPress={() => deleteFoodTrack(item._id)}>
+                                        <Icon name="delete" size={20} color="red" />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        ))
+                    )
                 )}
+
 
             </View>
         </Layout>

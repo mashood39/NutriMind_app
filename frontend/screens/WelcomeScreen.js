@@ -1,74 +1,32 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 const WelcomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <View className="flex-1 justify-center items-center bg-[#FAF9F6]">
 
-      <View style={styles.imageContainer}>
+      {/* Image Container */}
+      <View className="w-80 h-80 rounded-full overflow-hidden mt-10">
         <Image
           source={require('../assets/images/welcomeImage.png')}
-          style={styles.image}
+          className="w-full h-full"
         />
       </View>
 
-      <Text style={styles.title}>NutriMind</Text>
-      <Text style={styles.subtitle}>Map your nutrition journey</Text>
+      {/* Title */}
+      <Text className="text-4xl font-bold pt-12">NutriMind</Text>
+      <Text className="text-lg text-gray-500 opacity-60 mb-24">Map your nutrition journey</Text>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignIn')}>
-        <Text style={styles.buttonText} >Sign in</Text>
+      {/* Sign-in Button */}
+      <TouchableOpacity
+        className="bg-[#aad3ff] w-4/5 py-2.5 rounded-xl h-14 items-center justify-center"
+        onPress={() => navigation.navigate('HomeScreen')}
+      >
+        <Text className="text-xl text-black font-semibold">Start</Text>
       </TouchableOpacity>
 
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FAF9F6',
-  },
-  imageContainer: {
-    width: 300,
-    height: 300,
-    borderRadius: 75,
-    overflow: 'hidden',
-    marginTop: 40,
-    // marginBottom: 20,
-    // backgroundColor: 'red'
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-  title: {
-    fontSize: 35,
-    fontWeight: 'bold',
-    paddingTop: 50,
-  },
-  subtitle: {
-    fontSize: 16,
-    // color: '#555',
-    opacity: 0.4,
-    marginBottom: 100,
-  },
-  button: {
-    backgroundColor: '#aad3ff',
-    width: '80%',
-    paddingVertical: 10,
-    // paddingHorizontal: 20,
-    borderRadius: 14,
-    height: 45,
-    alignItems: 'center'
-  },
-  buttonText: {
-    fontSize: 16,
-    color: 'black',
-    textAlign: 'center'
-  },
-});
-
 export default WelcomeScreen;
-

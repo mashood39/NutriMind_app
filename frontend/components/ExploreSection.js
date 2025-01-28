@@ -33,7 +33,7 @@ const ExploreSection = ({ navigation }) => {
                 {diagrams.map((diagram, index) => (
                     <TouchableOpacity
                         key={index}
-                        className="bg-blue-100 px-2 py-2 rounded-full w-1/3"
+                        className="bg-blue-100 px-3 py-3 rounded-full w-32"
                         onPress={() =>
                             navigation.navigate('MindMapScreen', {
                                 id: diagram.short_id,

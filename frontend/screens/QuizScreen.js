@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { ScrollView } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import Layout from '../components/Layout';
 import api from '../lib/api';
 
-const QuizScreen = ({ route }) => {
+const QuizScreen = ({ route, navigation }) => {
     const { quizId } = route.params;
 
     const [quiz, setQuiz] = useState(null);
@@ -51,11 +51,11 @@ const QuizScreen = ({ route }) => {
             setPreviousSubmission(response.data)
         } catch (error) {
             if (error.response && error.response.status === 404) {
-                console.log('No previous submission found for this quiz.');
+                // console.log('No previous submission found for this quiz.');
                 setPreviousSubmission(null);
             }
             else {
-                console.error('Error fetching previous submission:', error.message);
+                // console.error('Error fetching previous submission:', error.message);
             }
         }
     };
@@ -84,7 +84,16 @@ const QuizScreen = ({ route }) => {
                 score,
             });
             setIsSubmitted(true);
-            Alert.alert('Quiz submitted!', `Your score: ${score}`);
+            Alert.alert(
+                'Quiz submitted!',
+                `Your score: ${score}`,
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => navigation.navigate('HomeScreen')
+                    }
+                ]
+            );
         } catch (error) {
             console.error('Error submitting quiz:', error.message);
         }
@@ -105,8 +114,11 @@ const QuizScreen = ({ route }) => {
         }
     };
 
-    if (!quiz) return <Text>Loading...</Text>;
-
+    if (!quiz) return (
+        <Layout>
+            <ActivityIndicator size="large" color="#4a90e2" className="mb-2" />
+        </Layout>
+    );
     if (previousSubmission && !isSubmitted) {
         return (
             <Layout>
@@ -128,38 +140,48 @@ const QuizScreen = ({ route }) => {
 
     return (
         <Layout>
-            <ScrollView className="flex-1 bg-white p-3">
-                <Text className="text-lg font-medium mb-4">{question.question}</Text>
-                {question.options.map((option, index) => {
-                    const isCorrect = index === question.correctAnswer;
-                    const isSelected = index === selectedOption;
+            <ScrollView
+                className="bg-white px-3"
+                contentContainerStyle={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
+            >
+                <View className='border border-gray-200 rounded-md p-5 w-full'>
+                    <Text className="text-lg font-medium mb-4">{question.question}</Text>
+                    {question.options.map((option, index) => {
+                        const isCorrect = index === question.correctAnswer;
+                        const isSelected = index === selectedOption;
 
-                    return (
-                        <TouchableOpacity
-                            key={index}
-                            className={`p-4 rounded-lg mb-2 ${isSelected
-                                ? isCorrect
-                                    ? 'bg-green-500'
-                                    : 'bg-red-500'
-                                : isCorrect && selectedOption !== null
-                                    ? 'bg-green-500'
-                                    : 'bg-gray-200'
-                                }`}
-                            onPress={() => handleAnswer(index)}
-                            disabled={selectedOption !== null}
-                        >
-                            <Text className="text-base">{option}</Text>
-                        </TouchableOpacity>
-                    );
-                })}
-                {selectedOption !== null && (
-                    <TouchableOpacity
-                        className="p-4 bg-blue-500 rounded-lg mt-4"
-                        onPress={nextQuestion}
-                    >
-                        <Text className="text-white">Next</Text>
-                    </TouchableOpacity>
-                )}
+                        return (
+                            <TouchableOpacity
+                                key={index}
+                                className={`p-4 rounded-lg mb-2 ${isSelected
+                                    ? isCorrect
+                                        ? 'bg-green-500'
+                                        : 'bg-red-500'
+                                    : isCorrect && selectedOption !== null
+                                        ? 'bg-green-500'
+                                        : 'bg-gray-200'
+                                    }`}
+                                onPress={() => handleAnswer(index)}
+                                disabled={selectedOption !== null}
+                            >
+                                <Text className="text-base text-center">{option}</Text>
+                            </TouchableOpacity>
+                        );
+                    })}
+
+                    {selectedOption !== null && (
+                        <View className="w-full flex-row justify-end mt-4">
+                            <TouchableOpacity
+                                className="p-4 bg-blue-500 rounded-lg w-24"
+                                onPress={currentQuestion === quiz.questions.length - 1 ? submitQuiz : nextQuestion}
+                            >
+                                <Text className="text-white text-center">
+                                    {currentQuestion === quiz.questions.length - 1 ? "Submit" : "Next"}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                </View>
             </ScrollView>
         </Layout>
     );

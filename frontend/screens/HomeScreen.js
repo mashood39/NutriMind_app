@@ -4,69 +4,73 @@ import Layout from '../components/Layout';
 import HomeCard from '../components/HomeCard';
 import api from "../lib/api";
 
+const ListSection = ({ title, data, type, navigation }) => (
+
+  <View className="mb-0">
+    <Text className="text-lg font-semibold text-gray-800 mb-3">{title}</Text>
+    <FlatList
+      data={data}
+      renderItem={({ item }) => (
+        <HomeCard
+          title={item.title}
+          image={item.image}
+          onPress={() =>
+            navigation.navigate(
+              type === 'blog' ? 'BlogScreen' :
+                type === 'quiz' ? 'QuizScreen' : 'MealPlanScreen',
+              { id: item._id, quizId: item._id }
+            )
+          }
+        />
+      )}
+      keyExtractor={(item) => item._id}
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingLeft: 0 }}
+    />
+  </View>
+
+);
+
 const HomeScreen = ({ navigation }) => {
 
   const [blogs, setBlogs] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
-  const [mealPlans, setMealPlans] = useState([])
+  const [mealPlans, setMealPlans] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const fetchBlogs = async () => {
+  const fetchData = async () => {
     try {
-      const response = await api.get('/api/blogs');
-      setBlogs(response.data.blogs);
+      await Promise.all([
+        api.get('/api/blogs').then((res) => setBlogs(res.data.blogs)),
+        api.get('/api/quizzes').then((res) => setQuizzes(res.data)),
+        api.get('/api/meal-plans').then((res) => setMealPlans(res.data.mealPlans)),
+      ]);
     } catch (error) {
-      console.error("error in fetching blogs", error);
+      console.error("Error fetching data", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const fetchQuizzes = async () => {
-    try {
-      const response = await api.get('/api/quizzes');
-      setQuizzes(response.data);
-    } catch (error) {
-      console.error("error in fetching quizzes", error);
-    }
-  };
-
-  const fetchMealPlans = async () => {
-    try {
-      const response = await api.get('/api/meal-plans')
-      setMealPlans(response.data.mealPlans)
-    } catch (error) {
-      console.error("error in fetching meal plans", error)
-    }
-  }
-
-  // fetch data from backend
   useEffect(() => {
-    fetchBlogs();
-    fetchQuizzes();
-    fetchMealPlans();
+    fetchData();
   }, []);
 
-
-
-  const renderItem = ({ item, type }) => (
-    <HomeCard
-      title={item.title}
-      image={item.image}
-      onPress={() => {
-        if (type === 'blog') {
-          navigation.navigate('BlogScreen', { id: item._id });
-        } else if (type === 'quiz') {
-          navigation.navigate('QuizScreen', { quizId: item._id });
-        } else {
-          navigation.navigate('MealPlanScreen', { id: item._id })
-        }
-      }}
-    />
-  );
+  if (loading) {
+    return (
+      <Layout>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color="#4a90e2" />
+        </View>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
-      <ScrollView showsVerticalScrollIndicator={false} className="p-3">
+      <ScrollView showsVerticalScrollIndicator={false} className="px-4">
 
-        {/* Banner section */}
         <View className="mb-4 relative">
           <Image source={require('../assets/images/image_1.png')} className="w-full h-40 rounded-lg" />
           <View className="absolute top-8 left-16">
@@ -79,45 +83,9 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </View>
 
-        {/* Blog Section */}
-        <View className="mb-0">
-          <Text className="text-lg font-semibold text-gray-800 mb-3">Read blogs for the latest insights.</Text>
-          <FlatList
-            data={blogs}
-            renderItem={({ item }) => renderItem({ item, type: 'blog' })}
-            keyExtractor={(item) => item._id}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingLeft: 0 }}
-          />
-        </View>
-
-        {/* Quizzes and puzzles */}
-        <View className="mb-0">
-          <Text className="text-lg font-semibold text-gray-800 mb-3">Quizzes and puzzles.</Text>
-          <FlatList
-            data={quizzes}
-            renderItem={({ item }) => renderItem({ item, type: 'quiz' })}
-            keyExtractor={(item) => item._id}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingLeft: 0 }}
-          />
-        </View>
-
-        {/* meals plan */}
-        <View className="mb-0">
-          <Text className="text-lg font-semibold text-gray-800 mb-3">Plan your own nutritious diet.</Text>
-          <FlatList
-            data={mealPlans}
-            renderItem={({ item }) => renderItem({ item, type: 'meal_plan' })}
-            keyExtractor={(item) => item._id}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingLeft: 0 }}
-          />
-        </View>
-
+        <ListSection title="Read blogs for the latest insights." data={blogs} type="blog" navigation={navigation} />
+        <ListSection title="Quizzes and puzzles." data={quizzes} type="quiz" navigation={navigation} />
+        <ListSection title="Plan your own nutritious diet." data={mealPlans} type="meal_plan" navigation={navigation} />
 
       </ScrollView>
     </Layout>

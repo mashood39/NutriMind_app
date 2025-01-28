@@ -5,6 +5,8 @@ import CreateQuiz from './pages/CreateQuiz'
 import CreateMealPlan from './pages/CreateMealPlan'
 import Blogs from './pages/Blogs'
 import BlogDetails from './pages/BlogDetails'
+import Quizzes from './pages/Quizzes'
+import QuizDetails from './pages/QuizDetails'
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
           <Route path='/create-meal-plan' element={<CreateMealPlan />} />
           <Route path='/blogs' element={<Blogs />} />
           <Route path='/blogs/:id' element={<BlogDetails />} />
+          <Route path='/quizzes' element={<Quizzes />} />
+          <Route path='/quizzes/:id' element={<QuizDetails />} />
         </Routes>
       </BrowserRouter>
     </div>
