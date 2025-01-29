@@ -40,8 +40,18 @@ const getMealPlan = async (req, res) => {
     }
 }
 
+const deleteMealPlan = async (req, res) => {
+    try {
+        await MealPlan.findByIdAndDelete(req.params.id)
+        res.status(200).json({ message: "Meal Plan deleted succesfully" })
+    } catch (error) {
+        res.status(500).json({ message: "error in deleting the meal plan" })
+    }
+}
+
 module.exports = {
     createMealPlan,
     getMealPlans,
-    getMealPlan
+    getMealPlan,
+    deleteMealPlan
 }
