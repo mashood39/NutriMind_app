@@ -19,9 +19,9 @@ const Home = () => {
         </button>
       </Link>
 
-      <Link to="/create-meal-plan">
-        <button className='rounded-xl p-2 bg-blue-500 text-white' >
-          Create Meal Plans
+      <Link to="/mealPlans">
+        <button className='rounded-xl p-2 bg-blue-500 text-white mr-4'>
+          Meal Plans
         </button>
       </Link>
 
