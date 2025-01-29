@@ -9,12 +9,14 @@ import Quizzes from './pages/Quizzes'
 import QuizDetails from './pages/QuizDetails'
 import MealPlans from './pages/MealPlans'
 import MealPlanDetails from './pages/MealPlanDetails'
+import Navbar from './components/Navbar'
 
 function App() {
 
   return (
     <div className='w-3/4 mx-auto'>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/blogs' element={<Blogs />} />
