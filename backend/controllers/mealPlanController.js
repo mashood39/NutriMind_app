@@ -21,7 +21,7 @@ createMealPlan = async (req, res) => {
 
 const getMealPlans = async (req, res) => {
     try {
-        const mealPlans = await MealPlan.find().sort({ created: -1 })
+        const mealPlans = await MealPlan.find().sort({ createdAt: -1 })
         res.status(200).json({ mealPlans })
     }
     catch (error) {
