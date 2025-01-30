@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator, Image } from 'react-native';
 import { ScrollView } from 'react-native';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import Layout from '../components/Layout';
@@ -76,6 +76,13 @@ const QuizScreen = ({ route, navigation }) => {
         }
     };
 
+    const previousQuestion = () => {
+        if (previousQuestion > 0) {
+            setCurrentQuestion(currentQuestion - 1);
+            setSelectedOption(null)
+        }
+    }
+
     const submitQuiz = async () => {
         // if (!userId) return; // Ensure userId is available before submitting
         try {
@@ -140,12 +147,17 @@ const QuizScreen = ({ route, navigation }) => {
 
     return (
         <Layout>
+            <Text className="text-2xl font-bold mb-4 text-gray-900 text-center">{quiz.title}</Text>
+            <Image
+                source={{ uri: quiz.image }}
+                className="w-5/6 m-auto h-48 mb-4"
+            />
             <ScrollView
-                className="bg-white px-3"
+                className="bg-white px-4"
                 contentContainerStyle={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
             >
-                <View className='border border-gray-200 rounded-md p-5 w-full'>
-                    <Text className="text-lg font-medium mb-4">{question.question}</Text>
+                <View className='rounded-md p-5 w-full'>
+                    <Text className="text-lg font-medium mb-4">{currentQuestion + 1}. {question.question}</Text>
                     {question.options.map((option, index) => {
                         const isCorrect = index === question.correctAnswer;
                         const isSelected = index === selectedOption;
@@ -169,18 +181,25 @@ const QuizScreen = ({ route, navigation }) => {
                         );
                     })}
 
-                    {selectedOption !== null && (
-                        <View className="w-full flex-row justify-end mt-4">
-                            <TouchableOpacity
-                                className="p-4 bg-blue-500 rounded-lg w-24"
-                                onPress={currentQuestion === quiz.questions.length - 1 ? submitQuiz : nextQuestion}
-                            >
-                                <Text className="text-white text-center">
-                                    {currentQuestion === quiz.questions.length - 1 ? "Submit" : "Next"}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    )}
+                    <View className='w-full flex-row justify-between mt-4'>
+                        <TouchableOpacity
+                            className='p-4 bg-gray-400 rounded-lg w-20'
+                            onPress={previousQuestion}
+                            disabled={currentQuestion === 0}
+                        >
+                            <Text className='text-white text-center'>Prev</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            className={`p-4 bg-blue-500 rounded-lg w-22 ${selectedOption === null ? 'opacity-60' : ''}`}
+                            onPress={currentQuestion === quiz.questions.length - 1 ? submitQuiz : nextQuestion}
+                            disabled={selectedOption === null}
+                        >
+                            <Text className='text-white text-center'>
+                                {currentQuestion === quiz.questions.length - 1 ? 'Submit' : 'Next'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
         </Layout>

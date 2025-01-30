@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, ActivityIndicator } from 'react-native';
+import { ScrollView, Text, View, ActivityIndicator, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import api from '../lib/api';
@@ -52,11 +52,13 @@ const MealPlanScreen = ({ route }) => {
     return (
         <Layout>
             <ScrollView className="p-3" showsVerticalScrollIndicator={false}>
-                {/* Title */}
                 <Text className="text-2xl font-bold text-gray-800 mb-4">{mealPlan.title}</Text>
+                <Image
+                    source={{ uri: mealPlan.image }}
+                    className="w-full h-52 mb-8 rounded-md"
+                />
 
-                {/* Day Picker Dropdown */}
-                <View className="border border-gray-300 rounded-lg mb-6">
+                <View className="border border-gray-300 rounded-lg mb-4">
                     <Picker
                         selectedValue={selectedDay}
                         onValueChange={(value) => setSelectedDay(value)}
