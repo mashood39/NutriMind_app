@@ -76,17 +76,10 @@ const QuizScreen = ({ route, navigation }) => {
         }
     };
 
-    const previousQuestion = () => {
-        if (previousQuestion > 0) {
-            setCurrentQuestion(currentQuestion - 1);
-            setSelectedOption(null)
-        }
-    }
-
     const submitQuiz = async () => {
         // if (!userId) return; // Ensure userId is available before submitting
         try {
-            await api.post(`api/submissions/${quizId}/submit`, {
+            await api.post(`/api/submissions/${quizId}/submit`, {
                 // userId,
                 score,
             });
@@ -180,27 +173,20 @@ const QuizScreen = ({ route, navigation }) => {
                             </TouchableOpacity>
                         );
                     })}
-
-                    <View className='w-full flex-row justify-between mt-4'>
+                    
+                    <View className="w-full flex-row justify-end mt-4">
                         <TouchableOpacity
-                            className='p-4 bg-gray-400 rounded-lg w-20'
-                            onPress={previousQuestion}
-                            disabled={currentQuestion === 0}
-                        >
-                            <Text className='text-white text-center'>Prev</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            className={`p-4 bg-blue-500 rounded-lg w-22 ${selectedOption === null ? 'opacity-60' : ''}`}
+                            className="p-4 bg-blue-500 rounded-lg w-24"
                             onPress={currentQuestion === quiz.questions.length - 1 ? submitQuiz : nextQuestion}
-                            disabled={selectedOption === null}
                         >
-                            <Text className='text-white text-center'>
-                                {currentQuestion === quiz.questions.length - 1 ? 'Submit' : 'Next'}
+                            <Text className="text-white text-center">
+                                {currentQuestion === quiz.questions.length - 1 ? "Submit" : "Next"}
                             </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
+
+
             </ScrollView>
         </Layout>
     );

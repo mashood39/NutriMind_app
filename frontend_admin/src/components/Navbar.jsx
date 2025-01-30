@@ -22,7 +22,7 @@ const Navbar = () => {
             <NavLink to="/mealPlans" className='text-lg text-black hover:text-blue-500 mr-4'
                 style={({ isActive }) => isActive ? { color: '#2196F3', fontWeight: '500' } : {}}
             >
-                MealPlans
+                Meal Plans
             </NavLink>
 
 

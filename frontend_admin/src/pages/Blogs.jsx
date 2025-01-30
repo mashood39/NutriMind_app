@@ -33,7 +33,7 @@ const Blogs = () => {
                     <h1 className='text-3xl font-bold my-4'>Blogs</h1>
                     <Link to="/create-blog">
                         <button className='rounded-xl p-2 bg-blue-500 text-white mb-4' >
-                            Create blog
+                            Create Blog
                         </button>
                     </Link>
                     <div className='grid md:grid-cols-2 gap-2'>

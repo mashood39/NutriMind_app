@@ -30,10 +30,10 @@ function MealPlans() {
                 </div>
             ) : (
                 <>
-                    <h1 className='text-3xl font-bold my-4'>Meal Plan</h1>
+                    <h1 className='text-3xl font-bold my-4'>Meal Plans</h1>
                     <Link to="/create-meal-plan">
                         <button className='rounded-xl p-2 bg-blue-500 text-white mb-4' >
-                            Create Meal Plans
+                            Create Meal Plan
                         </button>
                     </Link>
                     <div className='grid md:grid-cols-2 gap-2'>

@@ -77,7 +77,7 @@ const CreateMealPlan = () => {
                     required
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Enter meal plan title"
+                    placeholder="Enter Meal Plan title"
                     className="w-full border border-gray-300 rounded-md p-2 mb-4 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                 />
                 <input
