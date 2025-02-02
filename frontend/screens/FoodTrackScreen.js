@@ -13,7 +13,7 @@ const FoodTrackScreen = () => {
         date: '',
         time: '',
         food: '',
-        calorie: '',
+        quantity: '',
     });
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
@@ -63,7 +63,7 @@ const FoodTrackScreen = () => {
                 await api.post('/api/food-tracks', formData);
             }
 
-            setFormData({ date: '', time: '', food: '', calorie: '' });
+            setFormData({ date: '', time: '', food: '', quantity: '' });
             setShowInput(false);
             setEditingId(null);
             fetchFoodTrackData();
@@ -72,7 +72,7 @@ const FoodTrackScreen = () => {
             Alert.alert("Failed to save/update data");
         } finally {
             setLoading(false);
-        }
+        } q
     };
 
     const handleEdit = (item) => {
@@ -80,7 +80,7 @@ const FoodTrackScreen = () => {
             date: item.date,
             time: item.time,
             food: item.food,
-            calorie: item.calorie,
+            quantity: item.quantity,
         });
         setEditingId(item._id);
         setShowInput(true);
@@ -91,7 +91,7 @@ const FoodTrackScreen = () => {
         try {
             await api.delete(`/api/food-tracks/${id}`);
             setFoodData((prevData) => prevData.filter((item) => item._id !== id));
-            setFormData({ date: '', time: '', food: '', calorie: '' });
+            setFormData({ date: '', time: '', food: '', quantity: '' });
             setShowInput(false);
             setEditingId(null);
         } catch (error) {
@@ -117,7 +117,7 @@ const FoodTrackScreen = () => {
                             <TouchableOpacity className="rounded-md p-1 bg-red-500"
                                 onPress={() => (
                                     setShowInput(false), setFormData({
-                                        date: '', time: '', food: '', calorie: ''
+                                        date: '', time: '', food: '', quantity: ''
                                     }), setEditingId(null))
                                 }
                             >
@@ -152,7 +152,7 @@ const FoodTrackScreen = () => {
 
                             <View className="flex-row justify-between space-x-2 mb-2">
                                 <TextInput className="w-1/2 border border-gray-300 bg-white rounded-md p-2 mr-2" placeholder="Food" value={formData.food} onChangeText={(text) => setFormData({ ...formData, food: text })} />
-                                <TextInput className="flex-1 border border-gray-300 bg-white rounded-md p-2" placeholder="Qty" value={formData.calorie} onChangeText={(text) => setFormData({ ...formData, calorie: text })} />
+                                <TextInput className="flex-1 border border-gray-300 bg-white rounded-md p-2" placeholder="Qty" value={formData.quantity} onChangeText={(text) => setFormData({ ...formData, quantity: text })} />
                             </View>
 
                             <View className="flex-row justify-between">
@@ -188,8 +188,8 @@ const FoodTrackScreen = () => {
                                 <Text className="flex-1">{item.date}</Text>
                                 <Text className="flex-1 text-center">{item.time}</Text>
                                 <Text className="flex-1 text-center">{item.food}</Text>
-                                <Text className="flex-1 text-center">{item.calorie}</Text>
-                                <View className="flex-row">
+                                <Text className="flex-1 text-center">{item.quantity}</Text>
+                                <View className="">
                                     <TouchableOpacity onPress={() => handleEdit(item)} className="">
                                         <Icon name="edit" size={20} color="red" />
                                     </TouchableOpacity>

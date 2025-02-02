@@ -37,8 +37,26 @@ const deleteActivityTrack = async (req, res) => {
     }
 }
 
+const updateActivityTrack = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const updateActivityTrack = await ActivityTrack.findByIdAndUpdate(id, req.body, { new: true })
+
+        if (!updateActivityTrack) {
+            return res.status(404).json({ message: "acitivity track updated not found" })
+        }
+
+        res.status(200).json({ message: "activity track updated succesfully" })
+    } catch (error) {
+        console.error("error in updating the activity track", error)
+        res.status(500).json({ message: "error in updating the actitvity track" })
+    }
+}
+
 module.exports = {
     getActivityTracks,
     createActivityTrack,
-    deleteActivityTrack
+    deleteActivityTrack,
+    updateActivityTrack
 }
