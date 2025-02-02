@@ -32,14 +32,32 @@ const deleteFoodTrack = async (req, res) => {
         }
 
         res.status(200).json({ message: "food track deleted succcesfully    " })
-    } catch( error){
+    } catch (error) {
         console.error("error in deleting the food track")
-        res.status(500).json({message: "error in deleting the food track"})
+        res.status(500).json({ message: "error in deleting the food track" })
+    }
+}
+
+const updateFoodTrack = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const updateFoodTrack = await FoodTrack.findByIdAndUpdate(id, req.body, { new: true })
+
+        if (!updateFoodTrack) {
+            return res.status(404).json({ message: "Food track not found" })
+        }
+
+        res.status(200).json({ message: 'food track updated succesfully' })
+    } catch (error) {
+        console.error("error in updating the food track", error)
+        res.status(500).json({ message: "error in updating the food track" })
     }
 }
 
 module.exports = {
     getFoodTracks,
     createFoodTrack,
-    deleteFoodTrack
+    deleteFoodTrack,
+    updateFoodTrack
 }
