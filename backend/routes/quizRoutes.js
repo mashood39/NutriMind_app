@@ -3,7 +3,7 @@ const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('../config/cloudinary')
 
-const { createQuiz, getQuiz, getQuizzes, deleteQuiz } = require('../controllers/quizController');
+const { createQuiz, getQuiz, getQuizzes, deleteQuiz, updateQuiz } = require('../controllers/quizController');
 
 const router = express.Router();
 
@@ -24,5 +24,7 @@ router.get('/', getQuizzes)
 router.get('/:id', getQuiz)
 
 router.delete('/:id', deleteQuiz)
+
+router.put('/:id', updateQuiz)
 
 module.exports = router;

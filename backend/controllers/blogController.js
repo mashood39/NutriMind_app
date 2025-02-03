@@ -53,9 +53,22 @@ const deleteBlog = async (req, res) => {
     }
 }
 
+const updateBlog = async (req, res) => {
+    try{
+        const {id} = req.params
+
+        await Blog.findByIdAndUpdate(id, req.body, {new: true})
+        res.status(200).json({message: 'blog updated succesfully'})
+    } catch (error){
+        console.error("error in updating the blog", error)
+        res.status(500).json({message: "error in updating the blog"})
+    }
+}
+
 module.exports = {
     createBlog,
     getBlogs,
     getBlog,
-    deleteBlog
+    deleteBlog,
+    updateBlog
 }

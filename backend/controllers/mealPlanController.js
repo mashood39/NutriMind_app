@@ -49,9 +49,21 @@ const deleteMealPlan = async (req, res) => {
     }
 }
 
+const updateMealPlan = async (req, res) => {
+    try {
+        const { id } = req.params
+        await MealPlan.findByIdAndUpdate(id, req.body, { new: true })
+        res.status(200).json({ message: "meal plan updated succesfully" })
+    } catch (error) {
+        console.error("error in updating the meal plan", error)
+        res.status(500).json({ message: "error in updating the meal plan" })
+    }
+}
+
 module.exports = {
     createMealPlan,
     getMealPlans,
     getMealPlan,
-    deleteMealPlan
+    deleteMealPlan,
+    updateMealPlan
 }

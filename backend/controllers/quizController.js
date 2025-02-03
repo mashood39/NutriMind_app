@@ -53,9 +53,22 @@ const deleteQuiz = async (req, res) => {
     }
 }
 
+const updateQuiz = async (req, res) => {
+    try {
+        const { id } = req.params
+        await Quiz.findByIdAndUpdate(id, req.body, { new: true })
+        res.status(200).json({ message: "quiz updated succesfully" })
+    } catch (error) {
+        console.error("error in updating the quiz", error)
+        res.status(500).json({ message: "error in updating the quiz" })
+    }
+
+}
+
 module.exports = {
     createQuiz,
     getQuizzes,
     getQuiz,
-    deleteQuiz
+    deleteQuiz,
+    updateQuiz
 }
