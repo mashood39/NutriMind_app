@@ -76,7 +76,7 @@ const CreateBlog = () => {
     }
 
     return (
-        <div className="px-8 bg-gray-100 min-h-screen">
+        <div className="px-8 bg-gray-100 min-h-screen mb-10">
             <h1 className="text-3xl font-bold my-4">
                 {existingBlog ? 'Edit Blog' : 'Create Blog'}
             </h1>
@@ -86,7 +86,10 @@ const CreateBlog = () => {
                     placeholder='Add Blog title'
                     className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                     value={title}
-                    onChange={(e) => { setTitle(e.target.value), setError('') }}
+                    onChange={(e) => {
+                        setTitle(e.target.value);
+                        setError('')
+                    }}
                 />
                 <input
                     type='file'
@@ -109,14 +112,26 @@ const CreateBlog = () => {
                 {error && (
                     <p className='text-red-500'>{error}</p>
                 )}
-                <button
-                    type="submit"
-                    className={`w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''
-                        }`}
-                    disabled={loading}
-                >
-                    {loading ? (existingBlog ? 'Updating...' : 'Adding...') : (existingBlog ? 'Update Blog' : 'Add Blog')}
-                </button>
+
+                <div className={`flex ${existingBlog ? 'flex-row gap-2' : ''}`}>
+                    <button
+                        type="submit"
+                        className={`p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''} ${existingBlog ? 'flex-1' : 'w-full'}`}
+                        disabled={loading}
+                    >
+                        {loading ? (existingBlog ? 'Updating...' : 'Adding...') : (existingBlog ? 'Update Blog' : 'Add Blog')}
+                    </button>
+
+                    {existingBlog && (
+                        <button
+                            type='button'
+                            className='flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600'
+                            onClick={() => navigate('/blogs')}
+                        >
+                            Cancel
+                        </button>
+                    )}
+                </div>
             </form>
         </div>
     )

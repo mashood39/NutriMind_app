@@ -42,7 +42,7 @@ const BlogDetails = () => {
     }, [id])
 
     return (
-        <div className='p-4'>
+        <div className='p-4 mb-10'>
             {loading ? (
                 <div className="flex items-center justify-center h-screen" >
                     <ClipLoader color='grey' size={50} />
@@ -50,7 +50,7 @@ const BlogDetails = () => {
             ) : (
                 <>
                     <div className="mb-4 flex justify-end space-x-4">
-                        <MdEdit size={35} color='blue' onClick={() => navigate('/create-blog' ,{state: blog})} className='bg-gray-300 p-1 rounded-md' />
+                        <MdEdit size={35} color='blue' onClick={() => navigate('/create-blog', { state: blog })} className='bg-gray-300 p-1 rounded-md' />
                         <MdDelete size={35} color='red' onClick={deleteBlog} className='bg-gray-300 p-1 rounded-md' />
                     </div>
 
