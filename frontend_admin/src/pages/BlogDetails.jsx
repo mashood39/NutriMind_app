@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import api from '../lib/api';
 import { ClipLoader } from 'react-spinners';
+import { MdDelete, MdEdit } from "react-icons/md"
 
 const BlogDetails = () => {
 
@@ -48,13 +49,9 @@ const BlogDetails = () => {
                 </div >
             ) : (
                 <>
-                    <div className="mb-4 flex justify-end">
-                        <button
-                            onClick={deleteBlog}
-                            className="bg-red-500 text-white px-4 py-2 rounded-md shadow hover:bg-red-600"
-                        >
-                            Delete Blog
-                        </button>
+                    <div className="mb-4 flex justify-end space-x-4">
+                        <MdEdit size={35} color='blue' onClick={() => navigate('/create-blog' ,{state: blog})} className='bg-gray-300 p-1 rounded-md' />
+                        <MdDelete size={35} color='red' onClick={deleteBlog} className='bg-gray-300 p-1 rounded-md' />
                     </div>
 
                     <h1 className='text-3xl font-bold mb-4'>{blog.title}</h1>

@@ -26,6 +26,6 @@ router.get('/:id', getBlog)
 
 router.delete('/:id', deleteBlog)
 
-router.put('/:id', updateBlog)
+router.put('/:id', upload.single('image'), updateBlog)
 
 module.exports = router;
