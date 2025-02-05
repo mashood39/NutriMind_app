@@ -25,6 +25,6 @@ router.get('/:id', getQuiz)
 
 router.delete('/:id', deleteQuiz)
 
-router.put('/:id', updateQuiz)
+router.put('/:id', upload.single('image'), updateQuiz)
 
 module.exports = router;

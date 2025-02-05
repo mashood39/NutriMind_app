@@ -14,20 +14,14 @@ const CreateBlog = () => {
     const [content, setContent] = useState(existingBlog?.content || '')
     const [image, setImage] = useState(existingBlog?.image || null)
     const [previewImage, setPreviewImage] = useState(existingBlog?.image || '')
+
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
-
-    useEffect(() => {
-        if (existingBlog) {
-            setTitle(existingBlog.title)
-            setContent(existingBlog.content)
-            setPreviewImage(existingBlog.image)
-        }
-    }, [existingBlog])
 
     const handleImageChange = (e) => {
         setError('')
         const file = e.target.files[0]
+
         setImage(file)
         setPreviewImage(URL.createObjectURL(file))
     }
@@ -36,7 +30,7 @@ const CreateBlog = () => {
         e.preventDefault();
 
         setLoading(true);
-        if (!title || !content || !image) {
+        if (!title.trim() || !content.trim() || !image) {
             setError('Please add all fields')
             setLoading(false)
             return;

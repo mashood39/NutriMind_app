@@ -11,16 +11,14 @@ const createBlog = async (req, res) => {
             image: imageUrl,
             createdAt: new Date(),
         });
-
         await newBlog.save();
         res.status(200).json({ message: 'Blog added succesfully' })
     } catch (error) {
-        console.log(error)
+        console.log("error in saving the blog", error.message)
         res.status(500).json({ message: 'error in saving the blog' })
     }
 }
 
-//get all blogs
 const getBlogs = async (req, res) => {
     try {
         const blogs = await Blog.find().sort({ createdAt: - 1 });
@@ -32,7 +30,6 @@ const getBlogs = async (req, res) => {
     }
 }
 
-// get a single blog by id.
 const getBlog = async (req, res) => {
     try {
         const blog = await Blog.findById(req.params.id);

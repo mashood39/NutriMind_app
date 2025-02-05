@@ -56,13 +56,19 @@ const deleteQuiz = async (req, res) => {
 const updateQuiz = async (req, res) => {
     try {
         const { id } = req.params
-        await Quiz.findByIdAndUpdate(id, req.body, { new: true })
-        res.status(200).json({ message: "quiz updated succesfully" })
+        let updatedData = { ...req.body }
+        if (req.file) {
+            updatedData.image = req.file.path
+        }
+        if (updatedData.questions) {
+            updatedData.questions = JSON.parse(updatedData.questions)
+        }
+        const updatedQuiz = await Quiz.findByIdAndUpdate(id, updatedData, { new: true })
+        res.status(200).json({ message: "quiz updated succesfully", updatedQuiz })
     } catch (error) {
-        console.error("error in updating the quiz", error)
+        console.error("error in updating the quiz", error.message)
         res.status(500).json({ message: "error in updating the quiz" })
     }
-
 }
 
 module.exports = {

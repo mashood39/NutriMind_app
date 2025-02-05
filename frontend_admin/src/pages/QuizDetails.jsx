@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import api from '../lib/api';
 import { ClipLoader } from 'react-spinners';
+import { MdDelete, MdEdit } from 'react-icons/md';
 
 const QuizDetails = () => {
 
@@ -15,7 +16,6 @@ const QuizDetails = () => {
         try {
             const response = await api.get(`api/quizzes/${id}`)
             setQuiz(response.data.quiz)
-            console.log(response.data)
             setLoading(false)
         } catch (error) {
             console.error("error in fetching the quiz", error.message)
@@ -30,12 +30,11 @@ const QuizDetails = () => {
                 await api.delete(`api/quizzes/${id}`)
                 alert('Quiz deleted succesfully')
                 navigate('/quizzes')
-            } catch ( error){
+            } catch (error) {
                 console.error("error in deleting the quiz", error.message)
                 alert("failed to delete the Quiz, Please try again.")
             }
         }
-
     }
 
     useEffect(() => {
@@ -49,14 +48,10 @@ const QuizDetails = () => {
                     <ClipLoader color='grey' size={50} />
                 </div >
             ) : (
-                <div className='pt-4'>
-                    <div className="mb-4 flex justify-end">
-                        <button
-                            onClick={deleteQuiz}
-                            className="bg-red-500 text-white px-4 py-2 rounded-md shadow hover:bg-red-600"
-                        >
-                            Delete Quiz
-                        </button>
+                <div className='p-4'>
+                    <div className="mb-4 flex justify-end space-x-4">
+                        <MdEdit size={35} color='blue' onClick={() => navigate('/create-quiz', { state: quiz })} className='bg-gray-300 p-1 rounded-md' />
+                        <MdDelete size={35} color='red' onClick={deleteQuiz} className='bg-gray-300 p-1 rounded-md' />
                     </div>
 
                     <h1 className='text-3xl font-bold mb-4'>{quiz.title}</h1>
@@ -68,7 +63,7 @@ const QuizDetails = () => {
                             {question.options.map((option) => (
                                 <p className='pl-2'>{option}</p>
                             ))}
-                            <p>Correct Answer:<span className='font-semibold'> {question.options[question.correctAnswer + 1]}</span></p>
+                            <p>Correct Answer:<span className='font-semibold'> {question.options[question.correctAnswer]}</span></p>
                         </div>
                     ))}
 

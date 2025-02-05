@@ -12,7 +12,6 @@ const Quizzes = () => {
     const fetchQuizzes = async () => {
         try {
             const response = await api.get('api/quizzes')
-            console.log(response.data)
             setQuizzes(response.data)
             setLoading(false)
         } catch (error) {
