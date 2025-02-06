@@ -1,6 +1,6 @@
 const MealPlan = require("../models/mealPlanModel");
 
-createMealPlan = async (req, res) => {
+const createMealPlan = async (req, res) => {
     try {
         const { title, content } = req.body
         const imageUrl = req.file.path
@@ -52,8 +52,15 @@ const deleteMealPlan = async (req, res) => {
 const updateMealPlan = async (req, res) => {
     try {
         const { id } = req.params
-        await MealPlan.findByIdAndUpdate(id, req.body, { new: true })
-        res.status(200).json({ message: "meal plan updated succesfully" })
+        let updatedData = { ...req.body }
+        if (req.file) {
+            updatedData.image = req.file.path
+        }
+        if (updatedData.mealPlan) {
+            updatedData.mealPlan = JSON.parse(updatedData.mealPlan)
+        }
+        const updatedMealPlan = await MealPlan.findByIdAndUpdate(id, updatedData, { new: true })
+        res.status(200).json({ message: "meal plan updated succesfully", updatedMealPlan })
     } catch (error) {
         console.error("error in updating the meal plan", error)
         res.status(500).json({ message: "error in updating the meal plan" })

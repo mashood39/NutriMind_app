@@ -10,7 +10,7 @@ const router = express.Router();
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'mealPlans', // Folder in Cloudinary
+        folder: 'mealPlans',
         public_id: (req, file) => Date.now() + '-' + file.originalname.replace(/\s+/g, '-'),
     },
 })
@@ -25,6 +25,6 @@ router.get('/:id', getMealPlan)
 
 router.delete('/:id', deleteMealPlan)
 
-router.put('/:id', updateMealPlan)
+router.put('/:id', upload.single('image'), updateMealPlan)
 
 module.exports = router
