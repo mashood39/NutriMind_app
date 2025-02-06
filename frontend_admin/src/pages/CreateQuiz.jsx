@@ -189,7 +189,7 @@ const CreateQuiz = () => {
                     {existingQuiz && (
                         <button
                             type='button'
-                            className='flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600'
+                            className={`flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                             onClick={() => navigate('/quizzes')}
                         >
                             Cancel
