@@ -19,7 +19,7 @@ const Navbar = () => {
             >
                 Quizzes
             </NavLink>
-            <NavLink to="/mealPlans" className='text-lg text-black hover:text-blue-500 mr-4'
+            <NavLink to="/meal-plans" className='text-lg text-black hover:text-blue-500 mr-4'
                 style={({ isActive }) => isActive ? { color: '#2196F3', fontWeight: '500' } : {}}
             >
                 Meal Plans

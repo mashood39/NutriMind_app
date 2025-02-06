@@ -10,7 +10,7 @@ function MealPlans() {
 
     const fetchMealPlan = async () => {
         try {
-            const response = await api.get('api/meal-plans')
+            const response = await api.get('/api/meal-plans')
             setMealPlans(response.data.mealPlans)
             setLoading(false)
         } catch (error) {
@@ -43,7 +43,7 @@ function MealPlans() {
                                 className="p-4 mb-4 border rounded-md shadow-md"
                             >
                                 <h2 className='text-xl font-semibold'>{mealPlan.title}</h2>
-                                <Link to={`/mealPlans/${mealPlan._id}`} className='text-blue-500'>
+                                <Link to={`/meal-plans/${mealPlan._id}`} className='text-blue-500'>
                                     Read more
                                 </Link>
                             </div>

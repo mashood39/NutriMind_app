@@ -16,9 +16,9 @@ const QuizDetails = () => {
         try {
             const response = await api.get(`/api/quizzes/${id}`)
             setQuiz(response.data.quiz)
-            setLoading(false)
         } catch (error) {
             console.error("error in fetching the quiz", error.message)
+        } finally {
             setLoading(false)
         }
     }

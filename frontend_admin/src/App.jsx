@@ -20,14 +20,14 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/blogs' element={<Blogs />} />
-          <Route path='/quizzes' element={<Quizzes />} />
-          <Route path='/mealPlans' element={<MealPlans />} />
-          <Route path='/create-blog' element={<CreateBlog />} />
-          <Route path='/create-quiz' element={<CreateQuiz />} />
-          <Route path='/create-meal-plan' element={<CreateMealPlan />} />
           <Route path='/blogs/:id' element={<BlogDetails />} />
+          <Route path='/create-blog' element={<CreateBlog />} />
+          <Route path='/quizzes' element={<Quizzes />} />
           <Route path='/quizzes/:id' element={<QuizDetails />} />
-          <Route path='/mealPlans/:id' element={<MealPlanDetails />} />
+          <Route path='/create-quiz' element={<CreateQuiz />} />
+          <Route path='/meal-plans' element={<MealPlans />} />
+          <Route path='/create-meal-plan' element={<CreateMealPlan />} />
+          <Route path='/meal-plans/:id' element={<MealPlanDetails />} />
         </Routes>
       </BrowserRouter>
     </div>
