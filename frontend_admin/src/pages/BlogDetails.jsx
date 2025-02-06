@@ -25,9 +25,11 @@ const BlogDetails = () => {
 
     const deleteBlog = async () => {
         const confirmDelete = window.confirm("Are you sure want to delete this blog?")
+        setLoading(true)
         if (confirmDelete) {
             try {
                 await api.delete(`/api/blogs/${id}`)
+                setLoading(false)
                 alert('Blog deleted succesfully')
                 navigate('/blogs')
             } catch (error) {

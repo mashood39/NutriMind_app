@@ -28,7 +28,6 @@ const CreateBlog = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         setLoading(true);
         if (!title.trim() || !content.trim() || !image) {
             setError('Please add all fields')
@@ -119,7 +118,7 @@ const CreateBlog = () => {
                     {existingBlog && (
                         <button
                             type='button'
-                            className='flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600'
+                            className={`flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''} `}
                             onClick={() => navigate('/blogs')}
                         >
                             Cancel
