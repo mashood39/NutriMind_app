@@ -154,6 +154,7 @@ const CreateMealPlan = () => {
                                                             e.target.value
                                                         )
                                                     }
+                                                    required
                                                     className="w-2/3 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                                                 />
                                                 <input

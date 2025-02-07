@@ -29,7 +29,10 @@ const CreateBlog = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        if (!title.trim() || !content.trim() || !image) {
+
+        const isContentEmpty = (html) => html.replace(/<[^>]*>/g, '').trim() === '';
+
+        if (!title.trim() || isContentEmpty(content) || !image) {
             setError('Please add all fields')
             setLoading(false)
             return;
