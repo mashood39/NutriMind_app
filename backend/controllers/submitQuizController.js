@@ -42,6 +42,16 @@ const getSubmittedQuiz = async (req, res) => {
     }
 }
 
+const getSubmittedQuizzes = async (req, res) => {
+    try {
+        const submission = await SubmitQuiz.find().sort({ createdAt: - 1 })
+        res.status(200).json({ submission })
+    } catch (error) {
+        console.error("error in fetching the quiz score", error.messaage)
+        res.status(500).json({ message: "error in fetching the score" })
+    }
+}
+
 const resetQuiz = async (req, res) => {
     const { quizId } = req.params
 
@@ -65,5 +75,6 @@ const resetQuiz = async (req, res) => {
 module.exports = {
     submitQuiz,
     getSubmittedQuiz,
+    getSubmittedQuizzes,
     resetQuiz
 }

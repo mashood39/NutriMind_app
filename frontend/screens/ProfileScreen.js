@@ -23,7 +23,7 @@ const ProfileScreen = ({ navigation }) => {
 
           >
             <Image
-              source={require('../assets/icons/mind_icon.png')} // Replace with mind map icon
+              source={require('../assets/icons/mind_icon.png')}
               className="w-8 h-8 mb-2"
             />
             <Text className="text-sm font-medium text-gray-800">Mind maps</Text>
@@ -33,15 +33,18 @@ const ProfileScreen = ({ navigation }) => {
             className="w-[45%] bg-blue-200 p-4 rounded-lg items-center mb-4 mx-2"
           >
             <Image
-              source={require('../assets/icons/meal.png')} // Replace with meal plan icon
+              source={require('../assets/icons/meal.png')}
               className="w-8 h-8 mb-2"
             />
             <Text className="text-sm font-medium text-gray-800">Meal plan</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity className="w-[45%] bg-blue-200 p-4 rounded-lg items-center mb-4 mx-2">
+          <TouchableOpacity
+            className="w-[45%] bg-blue-200 p-4 rounded-lg items-center mb-4 mx-2"
+            onPress={() => navigation.navigate('RewardScreen')}
+          >
             <Image
-              source={require('../assets/icons/reward_icon.png')} // Replace with rewards icon
+              source={require('../assets/icons/reward_icon.png')}
               className="w-8 h-8 mb-2"
             />
             <Text className="text-sm font-medium text-gray-800">Rewards</Text>
@@ -49,7 +52,7 @@ const ProfileScreen = ({ navigation }) => {
 
           <TouchableOpacity className="w-[45%] bg-blue-200 p-4 rounded-lg items-center mb-4 mx-2">
             <Image
-              source={require('../assets/icons/whatsapp_icon.png')}// Replace with chat icon
+              source={require('../assets/icons/whatsapp_icon.png')}
               className="w-8 h-8 mb-2"
             />
             <Text className="text-sm font-medium text-gray-800">Chat</Text>
