@@ -55,12 +55,16 @@ const CreateQuiz = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
-        if (!title.trim() || questions.length === 0 || !image) {
+        if (!title.trim() || !image) {
             setError('Please add all fields')
-            setLoading(false)
             return
         }
+
+        if (questions.length === 0) {
+            setError('Please add atleast one question.')
+            return
+        }
+
         setLoading(true)
 
         const formData = new FormData();
