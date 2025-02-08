@@ -24,17 +24,17 @@ const QuizDetails = () => {
     }
 
     const deleteQuiz = async () => {
-        const confirmDelete = window.confirm("Are you sure want to delete the Quiz")
+        const confirmDelete = window.confirm("Are you sure you want to delete this Quiz?")
         setLoading(true)
         if (confirmDelete) {
             try {
                 await api.delete(`/api/quizzes/${id}`)
                 setLoading(false)
-                alert('Quiz deleted succesfully')
+                alert('Quiz deleted succesfully!')
                 navigate('/quizzes')
             } catch (error) {
                 console.error("error in deleting the quiz", error.message)
-                alert("failed to delete the Quiz, Please try again.")
+                alert("Failed to delete the Quiz ,Please try again!")
             }
         }
     }

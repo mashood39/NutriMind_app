@@ -49,6 +49,11 @@ const CreateMealPlan = () => {
         setPreviewImage(URL.createObjectURL(file))
     }
 
+    const handleCancel = () => {
+        const confirmCancel = window.confirm('Are you sure you want to cancel this Meal Plan?');
+        confirmCancel && navigate('/meal-plans')
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -73,7 +78,7 @@ const CreateMealPlan = () => {
                         "Content-Type": "multipart/form-data"
                     }
                 })
-                alert('meal plan updated succesfully')
+                alert('Meal Plan updated succesfully!')
             }
             else {
                 await api.post("/api/meal-plans", formData, {
@@ -172,13 +177,6 @@ const CreateMealPlan = () => {
                                                     }
                                                     className="w-1/3 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                                                 />
-                                                {/* <button
-                                                    type="button"
-                                                    onClick={() => handleAddMeal(dayIndex, timeIndex)}
-                                                    className="text-black-500 text-sm bg-emerald-200 w-10 h-11 rounded-md focus:ring-2 focus:ring-emerald-400 focus:outline-none"
-                                                >
-                                                    +
-                                                </button> */}
                                                 <HiPlusSmall
                                                     size={42}
                                                     className="bg-emerald-200 p-1 rounded-md text-normal focus:ring-2 focus:ring-emerald-400 focus:outline-none"
@@ -200,24 +198,22 @@ const CreateMealPlan = () => {
                 <p className="text-red-500 mb-2">{error}</p>
             )}
 
-            <div className={`flex ${existingMealPlan ? 'flex-row gap-2' : ''}`}>
+            <div className='flex flex-row gap-2'>
                 <button
                     type="submit"
-                    className={`p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''} ${existingMealPlan ? 'flex-1' : 'w-full'}`}
+                    className={`flex-1 p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''} `}
                     disabled={loading}
                 >
                     {loading ? (existingMealPlan ? 'Updating...' : 'Adding...') : (existingMealPlan ? 'Update Meal Plan' : 'Add Meal Plan')}
                 </button>
+                <button
+                    type='button'
+                    className={`flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''} `}
+                    onClick={handleCancel}
+                >
+                    Cancel
+                </button>
 
-                {existingMealPlan && (
-                    <button
-                        type='button'
-                        className={`flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''} `}
-                        onClick={() => navigate('/meal-plans')}
-                    >
-                        Cancel
-                    </button>
-                )}
             </div>
 
 

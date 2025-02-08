@@ -24,15 +24,15 @@ function MealPlanDetails() {
     }
 
     const deleteMealPlan = async () => {
-        const confirmDelete = window.confirm("Are you sure want to delete the meal plan")
+        const confirmDelete = window.confirm("Are you sure you want to delete this Meal Plan?")
         if (confirmDelete) {
             try {
                 await api.delete(`api/meal-plans/${id}`)
-                alert('Meal Plan deleted succesfully')
+                alert('Meal Plan deleted succesfully!')
                 navigate('/meal-plans')
             } catch (error) {
                 console.error("error in deleting the meal plan", error.message)
-                alert('failed to delete the meal plan , Please try again')
+                alert('Failed to delete the meal plan ,Please try again!')
             }
         }
     }

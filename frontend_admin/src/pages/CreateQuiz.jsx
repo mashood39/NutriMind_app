@@ -51,6 +51,10 @@ const CreateQuiz = () => {
         setQuestions(questions.filter((_, qIndex) => qIndex !== index))
     }
 
+    const handleCancel = () => {
+        const confirmCancel = window.confirm('Are you sure you want to cancel this Quiz?')
+        confirmCancel && navigate('/quizzes')
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -82,19 +86,19 @@ const CreateQuiz = () => {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-                alert('Quiz updted succesfully')
+                alert('Quiz updated succesfully!')
             } else {
                 await api.post('/api/quizzes', formData, {
                     headers: {
                         'Content-type': 'multipart/form-data'
                     }
                 })
-                alert("Quiz added succesfully")
+                alert("Quiz added succesfully!")
             }
             navigate('/quizzes')
         } catch (error) {
             console.error("error in saving the quiz", error)
-            alert("failed to save the quiz, Please try again")
+            alert("failed to save the quiz ,Please try again!")
         } finally {
             setLoading(false)
         }
@@ -175,7 +179,7 @@ const CreateQuiz = () => {
                     <p className='text-red-500'>{error}</p>
                 )}
 
-                <div className={`flex justify-between mt-4 gap-4`}>
+                <div className='flex justify-between mt-4 gap-4'>
                     <button
                         type='button'
                         onClick={addQuestion}
@@ -190,16 +194,13 @@ const CreateQuiz = () => {
                     >
                         {loading ? (existingQuiz ? 'Updating...' : 'Adding....') : (existingQuiz ? 'Update Quiz' : 'Add Quiz')}
                     </button>
-
-                    {existingQuiz && (
-                        <button
-                            type='button'
-                            className={`flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            onClick={() => navigate('/quizzes')}
-                        >
-                            Cancel
-                        </button>
-                    )}
+                    <button
+                        type='button'
+                        className={`flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        onClick={handleCancel}
+                    >
+                        Cancel
+                    </button>
                 </div>
             </form>
         </div>

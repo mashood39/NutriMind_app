@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css';
 import api from '../lib/api';
@@ -24,6 +24,11 @@ const CreateBlog = () => {
 
         setImage(file)
         setPreviewImage(URL.createObjectURL(file))
+    }
+
+    const handleCancel = () => {
+        const confirmCancel = window.confirm('Are you sure you want to cancel this Blog?')
+        confirmCancel && navigate('/blogs')
     }
 
     const handleSubmit = async (e) => {
@@ -52,19 +57,19 @@ const CreateBlog = () => {
                         'Content-Type': 'multipart/form-data',
                     }
                 })
-                alert('Blog updated succesfully')
+                alert('Blog updated succesfully!')
             } else {
                 await api.post('/api/blogs', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                alert('Blog created succesfully')
+                alert('Blog created succesfully!')
             }
             navigate('/blogs')
         }
         catch (error) {
-            alert("error in saving the blog , Please try again")
+            alert("error in saving the blog ,Please try again!")
             console.error(error);
         } finally {
             setLoading(false)
@@ -109,24 +114,21 @@ const CreateBlog = () => {
                     <p className='text-red-500'>{error}</p>
                 )}
 
-                <div className={`flex ${existingBlog ? 'flex-row gap-2' : ''}`}>
+                <div className='flex flex-row gap-2'>
                     <button
                         type="submit"
-                        className={`p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''} ${existingBlog ? 'flex-1' : 'w-full'}`}
+                        className={`flex-1 p-2 bg-blue-500  text-white font-semibold rounded-md hover:bg-blue-600 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         disabled={loading}
                     >
                         {loading ? (existingBlog ? 'Updating...' : 'Adding...') : (existingBlog ? 'Update Blog' : 'Add Blog')}
                     </button>
-
-                    {existingBlog && (
-                        <button
-                            type='button'
-                            className={`flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''} `}
-                            onClick={() => navigate('/blogs')}
-                        >
-                            Cancel
-                        </button>
-                    )}
+                    <button
+                        type='button'
+                        className={`flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''} `}
+                        onClick={handleCancel}
+                    >
+                        Cancel
+                    </button>
                 </div>
             </form>
         </div>
