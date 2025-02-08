@@ -1,19 +1,39 @@
-import { View, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Image, TouchableOpacity, SafeAreaView, Text } from 'react-native';
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useEffect, useState } from 'react';
+import api from '../lib/api';
 
 const Layout = ({ children }) => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  // Check if the current route is the home page
   const isHomePage = route.name === 'HomeScreen';
+  const [score, setScore] = useState([])
+  const [totalScore, setTotalScore] = useState(0)
+
+  const fetchScore = async () => {
+    try {
+      const response = await api.get('/api/submissions')
+      const scores = response.data.submission
+      setScore(scores)
+
+      const sum = scores.reduce((acc, submission) => acc + submission.score, 0)
+      setTotalScore(sum)
+    } catch (error) {
+      console.error("error in fetching the score", error.message)
+    }
+  }
+
+  useEffect(() => {
+    fetchScore();
+  }, [])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      
-      <View className="flex-1 pt-2 bg-white">
+
+      <View className="flex-1 pt-10 bg-white">
         {/* Header */}
         <View className="flex-row justify-between items-center px-3 pb-1 mb-2">
           <View>
@@ -26,14 +46,22 @@ const Layout = ({ children }) => {
             )}
           </View>
 
-          {/* <View className="flex-row gap-x-2">
-          <TouchableOpacity onPress={() => navigation.navigate('SettingScreen')}>
-            <Image source={require('../assets/icons/icon_gear.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image source={require('../assets/icons/icon_bell.png')} />
-          </TouchableOpacity>
-        </View> */}
+          <View className="flex-row gap-x-2">
+            <View className="flex-row items-center border border-gray-300 rounded-full px-4 py-1 mx-2 bg-white ">
+              <Image
+                className="w-6 h-6 mr-2"
+                source={require('../assets/icons/coin.png')}
+              />
+              <Text className="font-semibold text-lg text-gray-800">{totalScore}</Text>
+            </View>
+
+            {/* <TouchableOpacity onPress={() => navigation.navigate('SettingScreen')}>
+              <Image source={require('../assets/icons/icon_gear.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image source={require('../assets/icons/icon_bell.png')} />
+            </TouchableOpacity> */}
+          </View>
         </View>
 
         {/* Content */}
