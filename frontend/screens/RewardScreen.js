@@ -14,7 +14,6 @@ const RewardScreen = () => {
         try {
             const response = await api.get('/api/submissions');
             setSubmissions(response.data.submission)
-            // console.log(submissions)
         } catch (error) {
             console.error("error in fetching the submissions.", error.message)
         }
@@ -23,7 +22,6 @@ const RewardScreen = () => {
     const fetchQuizzes = async () => {
         try {
             const response = await api.get('/api/quizzes')
-            // console.log(response.data)
             setQuizzes(response.data)
         } catch (error) {
             console.error("error in fetching the quizzes", error.message)
@@ -55,12 +53,13 @@ const RewardScreen = () => {
                 <View className='pt-4'>
                     {quizResults.map((quiz, index) => (
                         <View key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-300 mb-2">
-                            <Text>
-                                🏆  You have scored
-                                <Text className="font-bold"> {quiz.score} points </Text>
-                                for attending the
-                            </Text>
-                            <Text className="font-bold pt-2 pl-6"> {quiz.quizTitle}.</Text>
+                            <View className='flex-row '>
+                                <Text className='leading-6'>🎁</Text>
+                                <Text className='ml-2 leading-6'>You have earned<Text className="font-bold"> {quiz.score} points </Text>
+                                    for completing the quiz -
+                                    <Text className="font-bold"> {quiz.quizTitle}.</Text>
+                                </Text>
+                            </View>
                         </View>
                     ))}
                 </View>
