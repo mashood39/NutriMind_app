@@ -11,9 +11,9 @@ const submitQuizRoutes = require('./routes/submitQuizRoutes')
 const mealPlanRoutes = require('./routes/mealPlanRoutes')
 const foodTrackRoutes = require('./routes/foodTrackRoutes')
 const activityTrackRoutes = require('./routes/activityTrackRoutes')
+const glossaryRoutes = require('./routes/glossaryRoutes')
 
 // const uservalidation = require('./middleware/uservalidation')
-
 connectDB();
 const app = express()
 app.use(cors());
@@ -37,7 +37,7 @@ app.use('/api/submissions', submitQuizRoutes)
 app.use('/api/meal-plans', mealPlanRoutes)
 app.use('/api/food-tracks', foodTrackRoutes)
 app.use('/api/activity-tracks', activityTrackRoutes)
-
+app.use('/api/glossaries', glossaryRoutes)
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log('server running succesfully,', PORT)

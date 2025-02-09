@@ -31,7 +31,7 @@ const deleteFoodTrack = async (req, res) => {
             return res.status(404).json({ message: "food track not found" })
         }
 
-        res.status(200).json({ message: "food track deleted succcesfully    " })
+        res.status(200).json({ message: "food track deleted succcesfully" })
     } catch (error) {
         console.error("error in deleting the food track")
         res.status(500).json({ message: "error in deleting the food track" })
