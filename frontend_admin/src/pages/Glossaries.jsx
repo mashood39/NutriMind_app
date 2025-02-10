@@ -82,7 +82,7 @@ const Glossaries = () => {
                 </div>
             ) : (
                 <div className='w-4/5 m-auto'>
-                    <h1 className='text-3xl font-bold my-4'>Glossaries</h1>
+                    <h1 className='text-3xl font-bold my-4'>Glossary</h1>
 
                     <div className='mb-6'>
                         {showInput ? (
@@ -131,7 +131,7 @@ const Glossaries = () => {
                             </div>
                         ) : (
                             <button className='rounded-xl p-2 bg-blue-500 text-white' onClick={() => setShowInput(true)} >
-                                Create Glossary
+                                Add Item
                             </button>
                         )}
                     </div>
