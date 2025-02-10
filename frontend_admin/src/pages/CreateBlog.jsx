@@ -57,14 +57,14 @@ const CreateBlog = () => {
                         'Content-Type': 'multipart/form-data',
                     }
                 })
-                alert('Blog updated succesfully!')
+                alert('Blog updated successfully!')
             } else {
                 await api.post('/api/blogs', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                alert('Blog created succesfully!')
+                alert('Blog created successfully!')
             }
             navigate('/blogs')
         }
