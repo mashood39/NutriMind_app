@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import api from "../lib/api";
 import { useLocation, useNavigate } from "react-router-dom";
-import { HiPlusSmall } from "react-icons/hi2";
+import { GrFormAdd } from "react-icons/gr";
+import { GrFormClose } from "react-icons/gr";
 
 const CreateMealPlan = () => {
 
@@ -39,6 +40,12 @@ const CreateMealPlan = () => {
     const handleAddMeal = (dayIndex, timeIndex) => {
         const updatedPlan = [...mealPlan]
         updatedPlan[dayIndex].meals[timeIndex].meals.push({ meal: "", quantity: "" })
+        setMealPlan(updatedPlan)
+    }
+
+    const handleRemoveMeal = (dayIndex, timeIndex, mealIndex) => {
+        const updatedPlan = [...mealPlan]
+        updatedPlan[dayIndex].meals[timeIndex].meals.splice(mealIndex, 1)
         setMealPlan(updatedPlan)
     }
 
@@ -135,7 +142,6 @@ const CreateMealPlan = () => {
                         <div key={dayPlan.day} className="p-4 border border-gray-300 rounded-md">
                             <h3 className="text-lg font-medium text-gray-700 mb-3">{dayPlan.day}</h3>
                             <div className="grid grid-cols-3 gap-4">
-                                {/* <div className="space-y-4"> */}
                                 {dayPlan.meals.map((timeSlot, timeIndex) => (
                                     <div key={timeSlot.time}>
                                         <label
@@ -145,7 +151,7 @@ const CreateMealPlan = () => {
                                             {timeSlot.time}
                                         </label>
                                         {timeSlot.meals.map((meal, mealIndex) => (
-                                            <div key={mealIndex} className="flex gap-x-2 mb-2">
+                                            <div key={mealIndex} className="flex gap-x-2 mb-2 text-center">
                                                 <input
                                                     type="text"
                                                     placeholder="Meal"
@@ -160,7 +166,7 @@ const CreateMealPlan = () => {
                                                         )
                                                     }
                                                     required
-                                                    className="w-2/3 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                                    className="w-2/3 border border-gray-300 rounded-md p-1.5 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                                                 />
                                                 <input
                                                     type="text"
@@ -175,14 +181,23 @@ const CreateMealPlan = () => {
                                                             e.target.value
                                                         )
                                                     }
-                                                    className="w-1/3 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                                    className="w-1/3 border border-gray-300 rounded-md p-1.5 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                                                 />
-                                                <HiPlusSmall
-                                                    size={42}
-                                                    className="bg-emerald-200 p-1 rounded-md text-normal focus:ring-2 focus:ring-emerald-400 focus:outline-none"
-                                                    type="button"
-                                                    onClick={() => handleAddMeal(dayIndex, timeIndex)}
-                                                />
+                                                {mealIndex === timeSlot.meals.length - 1 ? (
+                                                    <GrFormAdd
+                                                        size={36}
+                                                        className="bg-green-400 text-white rounded-md"
+                                                        type="button"
+                                                        onClick={() => handleAddMeal(dayIndex, timeIndex)}
+                                                    />
+                                                ) : (
+                                                    <GrFormClose
+                                                        size={36}
+                                                        className="bg-red-500 text-white rounded-md "
+                                                        onClick={() => handleRemoveMeal(dayIndex, timeIndex, mealIndex)}
+                                                    />
+                                                )}
+
                                             </div>
                                         ))}
                                     </div>
