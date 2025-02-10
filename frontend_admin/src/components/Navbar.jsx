@@ -1,5 +1,5 @@
 import React from 'react'
-import {  NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
     return (
@@ -24,8 +24,11 @@ const Navbar = () => {
             >
                 Meal Plans
             </NavLink>
-
-
+            <NavLink to="/glossaries" className='text-lg text-black hover:text-blue-500 mr-4'
+                style={({ isActive }) => isActive ? { color: '#2196F3', fontWeight: '500' } : {}}
+            >
+                Glossaries
+            </NavLink>
         </div>
     )
 }
