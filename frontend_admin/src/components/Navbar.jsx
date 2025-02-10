@@ -27,7 +27,7 @@ const Navbar = () => {
             <NavLink to="/glossaries" className='text-lg text-black hover:text-blue-500 mr-4'
                 style={({ isActive }) => isActive ? { color: '#2196F3', fontWeight: '500' } : {}}
             >
-                Glossaries
+                Glossary
             </NavLink>
         </div>
     )
