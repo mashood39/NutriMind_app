@@ -119,7 +119,11 @@ const Glossaries = () => {
                                     </button>
                                     <button
                                         className='flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600'
-                                        onClick={() => setShowInput(false)}
+                                        onClick={() => {
+                                            setShowInput(false);
+                                            setWord('');
+                                            setDefinition('');
+                                        }}
                                     >
                                         Cancel
                                     </button>
