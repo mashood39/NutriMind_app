@@ -2,7 +2,7 @@ const Glossary = require("../models/glossaryModel")
 
 const getGlossaries = async (req, res) => {
     try {
-        const glossaries = await Glossary.find().sort({ createdAt: -1 })
+        const glossaries = await Glossary.find().sort({ word: 1 })
         res.status(200).json(glossaries)
     } catch (error) {
         console.error("error in fetching glossaries:", error.message)
