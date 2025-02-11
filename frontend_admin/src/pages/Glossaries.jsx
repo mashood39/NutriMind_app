@@ -29,7 +29,7 @@ const Glossaries = () => {
     }, [])
 
     const deleteItem = async (id) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this Glossary?")
+        const confirmDelete = window.confirm("Are you sure you want to delete this Glossary Item?")
         setLoading(true)
         if (confirmDelete) {
             try {
@@ -44,7 +44,7 @@ const Glossaries = () => {
     }
 
     const handleCancel = () => {
-        const confirmCancel = window.confirm('Are you sure you want to cancel this Glossary?')
+        const confirmCancel = window.confirm('Are you sure you want to cancel this Glossary Item?')
         if (confirmCancel) {
             setShowInput(false);
             setWord('');
@@ -69,10 +69,10 @@ const Glossaries = () => {
         try {
             if (updateId) {
                 await api.put(`/api/glossaries/${updateId}`, { word, definition })
-                alert('Glossary updated successfully!')
+                alert('Glossary Item updated successfully!')
             } else {
                 await api.post('/api/glossaries', { word, definition })
-                alert('Glossary added successfully!')
+                alert('Glossary Item added successfully!')
             }
             setWord('')
             setDefinition('')
@@ -80,7 +80,7 @@ const Glossaries = () => {
             setShowInput(false)
             fetchGlossaries();
         } catch (error) {
-            alert("error in saving the glossary ,Please try again!")
+            alert("error in saving the Glossary Item ,Please try again!")
             console.error("error in saving the glossary", error.message)
         } finally {
             setLoading(false)
@@ -101,7 +101,9 @@ const Glossaries = () => {
                     <div className='mb-6'>
                         {showInput ? (
                             <div className='border border-gray-300 p-4 rounded-md'>
-                                <h2 className='text-xl font-bold mb-4 text-center'>Add Glossary Item</h2>
+                                <h2 className='text-xl font-bold mb-4 text-center'>
+                                    {updateId ? 'Edit' : 'Add'} Glossary Item
+                                </h2>
                                 <input
                                     type='text'
                                     value={word}
