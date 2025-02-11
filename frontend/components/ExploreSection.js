@@ -22,7 +22,7 @@ const ExploreSection = ({ navigation }) => {
     }, []);
 
     return (
-        <View className="px-4">
+        <View>
             <Text className="text-lg font-bold mb-4">Explore mind maps on nutrition</Text>
 
             {loading && (

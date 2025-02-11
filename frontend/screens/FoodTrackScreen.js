@@ -103,7 +103,7 @@ const FoodTrackScreen = () => {
 
     return (
         <Layout>
-            <View className="flex-1 bg-white px-4">
+            <View className="flex-1 bg-white px-4 mt-2">
 
                 {!showInput ? (
                     <View className="flex-row justify-end mb-2">
@@ -125,7 +125,7 @@ const FoodTrackScreen = () => {
                             </TouchableOpacity>
                         </View>
 
-                        <View className="p-4 bg-gray-100 rounded-md border border-gray-300 mb-4">
+                        <View className="p-4 rounded-md border border-gray-300 mb-4">
                             <View className="flex-row justify-between mb-2">
                                 <TouchableOpacity
                                     onPress={() => setShowDatePicker(true)}
@@ -170,11 +170,11 @@ const FoodTrackScreen = () => {
                     </>
                 )}
 
-                <View className="flex-row justify-between bg-gray-200 p-2 border border-gray-300 rounded-md">
-                    <Text className="font-bold text-center">Date</Text>
-                    <Text className="font-bold text-center">Time</Text>
-                    <Text className="font-bold text-center">Food</Text>
-                    <Text className="font-bold text-center mr-14">Qty</Text>
+                <View className="flex-row justify-between p-2 border border-gray-300 rounded-md mb-1">
+                    <Text className="font-black text-center">Date</Text>
+                    <Text className="font-black text-center">Time</Text>
+                    <Text className="font-black text-center">Food</Text>
+                    <Text className="font-black text-center mr-14">Qty</Text>
                 </View>
 
                 {loading ? (

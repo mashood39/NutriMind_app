@@ -28,14 +28,14 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     fetchScore();
-  }, [])
+  }, [score])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
 
       <View className="flex-1 pt-10 bg-white">
         {/* Header */}
-        <View className="flex-row justify-between items-center px-3 pb-1 mb-2">
+        <View className="flex-row justify-between items-center px-3">
           <View>
             {isHomePage ? (
               <Image source={require('../assets/icons/icon_app.png')} />

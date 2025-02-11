@@ -60,7 +60,7 @@ const HomeScreen = ({ navigation }) => {
   if (loading) {
     return (
       <Layout>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View className="flex-1 justify-center">
           <ActivityIndicator size="large" color="#4a90e2" />
         </View>
       </Layout>
@@ -69,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <Layout>
-      <ScrollView showsVerticalScrollIndicator={false} className="px-4">
+      <ScrollView showsVerticalScrollIndicator={false} className="px-4 mt-2">
 
         <View className="mb-4 relative">
           <Image source={require('../assets/images/image_1.png')} className="w-full h-40 rounded-lg" />
