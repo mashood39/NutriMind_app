@@ -29,14 +29,26 @@ const Glossaries = () => {
     }, [])
 
     const deleteItem = async (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this Glossary?")
         setLoading(true)
-        try {
-            await api.delete(`/api/glossaries/${id}`)
-            setGlossaries((prevData) => prevData.filter((item) => item._id !== id))
-        } catch (error) {
-            console.error("error in deleting the glossary", error.message)
-        } finally {
-            setLoading(false)
+        if (confirmDelete) {
+            try {
+                await api.delete(`/api/glossaries/${id}`)
+                setGlossaries((prevData) => prevData.filter((item) => item._id !== id))
+            } catch (error) {
+                console.error("error in deleting the glossary", error.message)
+            } finally {
+                setLoading(false)
+            }
+        }
+    }
+
+    const handleCancel = () => {
+        const confirmCancel = window.confirm('Are you sure you want to cancel this Glossary?')
+        if (confirmCancel) {
+            setShowInput(false);
+            setWord('');
+            setDefinition('');
         }
     }
 
@@ -57,8 +69,10 @@ const Glossaries = () => {
         try {
             if (updateId) {
                 await api.put(`/api/glossaries/${updateId}`, { word, definition })
+                alert('Glossary updated successfully!')
             } else {
                 await api.post('/api/glossaries', { word, definition })
+                alert('Glossary added successfully!')
             }
             setWord('')
             setDefinition('')
@@ -119,11 +133,7 @@ const Glossaries = () => {
                                     </button>
                                     <button
                                         className='flex-1 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600'
-                                        onClick={() => {
-                                            setShowInput(false);
-                                            setWord('');
-                                            setDefinition('');
-                                        }}
+                                        onClick={handleCancel}
                                     >
                                         Cancel
                                     </button>

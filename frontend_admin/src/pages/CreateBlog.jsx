@@ -22,8 +22,11 @@ const CreateBlog = () => {
         setError('')
         const file = e.target.files[0]
 
-        setImage(file)
-        setPreviewImage(URL.createObjectURL(file))
+        if (file) {
+            if (previewImage) URL.revokeObjectURL(previewImage);
+            setImage(file)
+            setPreviewImage(URL.createObjectURL(file))
+        }
     }
 
     const handleCancel = () => {
