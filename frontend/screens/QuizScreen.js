@@ -122,14 +122,13 @@ const QuizScreen = ({ route, navigation }) => {
     if (previousSubmission && !isSubmitted) {
         return (
             <Layout>
-                <View className="flex-1 items-center justify-center">
-                    <Text className="text-lg font-bold">You already attempted this quiz!</Text>
-                    <Text className="text-base">Previous Score: {previousSubmission.score}</Text>
-                    <TouchableOpacity
+                <View className="flex-1 items-center justify-center px-4">
+                    <Text className="text-lg font-bold text-center">You've already taken this quiz. Your score: {previousSubmission.score}. Reset to try again</Text>
+                        <TouchableOpacity
                         className="mt-4 p-4 bg-blue-500 rounded-lg"
                         onPress={resetQuiz}
                     >
-                        <Text className="text-white">Reset Quiz</Text>
+                        <Text className="text-white">Reset</Text>
                     </TouchableOpacity>
                 </View>
             </Layout>
@@ -173,7 +172,7 @@ const QuizScreen = ({ route, navigation }) => {
                             </TouchableOpacity>
                         );
                     })}
-                    
+
                     <View className="w-full flex-row justify-end mt-4">
                         <TouchableOpacity
                             className="p-4 bg-blue-500 rounded-lg w-24"

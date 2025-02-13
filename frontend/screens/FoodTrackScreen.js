@@ -45,7 +45,10 @@ const FoodTrackScreen = () => {
     const handleTimeChange = (event, selectedTime) => {
         setShowTimePicker(false);
         if (selectedTime) {
-            setFormData({ ...formData, time: selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+            const formattedTime = selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })
+                .replace(/am|pm/, (match) => match.toUpperCase());
+
+            setFormData({ ...formData, time: formattedTime })
         }
     };
 

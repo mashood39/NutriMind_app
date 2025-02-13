@@ -46,8 +46,10 @@ const ActivityTrackScreen = () => {
     const handleTimeChange = (event, selectedTime) => {
         setShowTimePicker(false);
         if (selectedTime) {
-            const formattedTime = selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Format: HH:MM
-            setFormData({ ...formData, time: formattedTime });
+            const formattedTime = selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })
+                .replace(/am|pm/, (match) => match.toUpperCase());
+
+            setFormData({ ...formData, time: formattedTime })
         }
     };
 

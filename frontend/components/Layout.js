@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
 
-      <View className="flex-1 pt-10 bg-white">
+      <View className="flex-1 pt-2 bg-white">
         {/* Header */}
         <View className="flex-row justify-between items-center px-3">
           <View>
