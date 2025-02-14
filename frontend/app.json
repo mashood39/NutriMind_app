@@ -26,6 +26,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
+      "PHONE_NUMBER": "8281396739",
       "eas": {
         "projectId": "7db82227-f7df-4022-a19c-e78e39cfeb53"
       }

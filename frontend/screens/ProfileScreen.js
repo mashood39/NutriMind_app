@@ -1,9 +1,16 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Layout from '../components/Layout'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Constants from "expo-constants";
 
 const ProfileScreen = ({ navigation }) => {
+  const PHONE_NUMBER = Constants.expoConfig.extra.PHONE_NUMBER;
+
+  const openWhatsapp = () => {
+    Linking.openURL(`whatsapp://send?phone=${PHONE_NUMBER}`)
+  }
+
   return (
     <Layout>
       <View className="px-4">
@@ -50,7 +57,9 @@ const ProfileScreen = ({ navigation }) => {
             <Text className="text-sm font-medium text-gray-800">Rewards</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity className="w-[45%] bg-blue-200 p-4 rounded-lg items-center mb-4 mx-2">
+          <TouchableOpacity className="w-[45%] bg-blue-200 p-4 rounded-lg items-center mb-4 mx-2"
+            onPress={openWhatsapp}
+          >
             <Image
               source={require('../assets/icons/whatsapp_icon.png')}
               className="w-8 h-8 mb-2"
