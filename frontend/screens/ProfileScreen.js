@@ -38,6 +38,7 @@ const ProfileScreen = ({ navigation }) => {
 
           <TouchableOpacity
             className="w-[45%] bg-blue-200 p-4 rounded-lg items-center mb-4 mx-2"
+            onPress={() => navigation.navigate('FavMealPlanScreen')}
           >
             <Image
               source={require('../assets/icons/meal.png')}

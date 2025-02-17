@@ -21,6 +21,7 @@ import { AuthProvider } from './context/AuthContext';
 import "./global.css";
 import RewardScreen from './screens/RewardScreen';
 import GlossaryScreen from './screens/GlossaryScreen';
+import FavMealPlanScreen from './screens/FavMealPlanScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +29,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <AuthProvider>
-        <Stack.Navigator initialRouteName="Welcome">
+        <Stack.Navigator initialRouteName="HomeScreen">
           <Stack.Screen name="Welcome" options={{ headerShown: false }} component={WelcomeScreen} />
           <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SigninScreen} />
           <Stack.Screen name="HomeScreen" options={{ headerShown: false }} component={HomeScreen} />
@@ -43,6 +44,7 @@ export default function App() {
           <Stack.Screen name="ActivityTrackScreen" options={{ headerShown: false }} component={ActivityTrackScreen} />
           <Stack.Screen name="RewardScreen" options={{ headerShown: false }} component={RewardScreen} />
           <Stack.Screen name="GlossaryScreen" options={{ headerShown: false }} component={GlossaryScreen} />
+          <Stack.Screen name="FavMealPlanScreen" options={{ headerShown: false }} component={FavMealPlanScreen} />
         </Stack.Navigator>
       </AuthProvider>
     </NavigationContainer>

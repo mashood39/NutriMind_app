@@ -12,6 +12,7 @@ const mealPlanRoutes = require('./routes/mealPlanRoutes')
 const foodTrackRoutes = require('./routes/foodTrackRoutes')
 const activityTrackRoutes = require('./routes/activityTrackRoutes')
 const glossaryRoutes = require('./routes/glossaryRoutes')
+const favoriteRoutes = require('./routes/favoriteRoutes')
 
 // const uservalidation = require('./middleware/uservalidation')
 connectDB();
@@ -38,6 +39,8 @@ app.use('/api/meal-plans', mealPlanRoutes)
 app.use('/api/food-tracks', foodTrackRoutes)
 app.use('/api/activity-tracks', activityTrackRoutes)
 app.use('/api/glossaries', glossaryRoutes)
+app.use('/api/favorites', favoriteRoutes)
+
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log('server running succesfully,', PORT)
