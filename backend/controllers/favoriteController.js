@@ -1,5 +1,14 @@
 const Favorite = require("../models/favoriteModel")
 
+const getItemIds = async (req, res) => {
+    try {
+        const itemIds = await Favorite.find().sort({ createdAt: -1 })
+        res.status(200).json({ itemIds })
+    } catch (error) {
+        console.error("error in fetching the fav meal plans")
+    }
+}
+
 const addItemId = async (req, res) => {
     try {
         const { itemId } = req.body
@@ -35,6 +44,7 @@ const deleteItemId = async (req, res) => {
 }
 
 module.exports = {
+    getItemIds,
     addItemId,
     getItemId,
     deleteItemId
