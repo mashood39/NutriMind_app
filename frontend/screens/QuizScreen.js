@@ -78,25 +78,27 @@ const QuizScreen = ({ route, navigation }) => {
 
     const submitQuiz = async () => {
         // if (!userId) return; // Ensure userId is available before submitting
-        try {
-            await api.post(`/api/submissions/${quizId}/submit`, {
-                // userId,
-                score,
-            });
-            setIsSubmitted(true);
-            Alert.alert(
-                'Quiz submitted!',
-                `Your score: ${score}`,
-                [
-                    {
-                        text: 'OK',
-                        onPress: () => navigation.navigate('HomeScreen')
+        Alert.alert(
+            'Quiz submitted!',
+            `Your score: ${score}`,
+            [
+                {
+                    text: 'OK',
+                    onPress: async () => {
+                        try {
+                            await api.post(`/api/submissions/${quizId}/submit`, {
+                                // userId,
+                                score,
+                            });
+                            setIsSubmitted(true);
+                            navigation.navigate('HomeScreen')
+                        } catch (error) {
+                            console.error('Error submitting quiz:', error.message);
+                        }
                     }
-                ]
-            );
-        } catch (error) {
-            console.error('Error submitting quiz:', error.message);
-        }
+                }
+            ]
+        );
     };
 
     const resetQuiz = async () => {
@@ -124,7 +126,7 @@ const QuizScreen = ({ route, navigation }) => {
             <Layout>
                 <View className="flex-1 items-center justify-center px-4">
                     <Text className="text-lg font-bold text-center">You've already taken this quiz. Your score: {previousSubmission.score}. Reset to try again</Text>
-                        <TouchableOpacity
+                    <TouchableOpacity
                         className="mt-4 p-4 bg-blue-500 rounded-lg"
                         onPress={resetQuiz}
                     >
