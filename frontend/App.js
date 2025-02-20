@@ -22,6 +22,7 @@ import "./global.css";
 import RewardScreen from './screens/RewardScreen';
 import GlossaryScreen from './screens/GlossaryScreen';
 import FavMealPlanScreen from './screens/FavMealPlanScreen';
+import FavMindMapScreen from './screens/FavMindMapScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ export default function App() {
           <Stack.Screen name="RewardScreen" options={{ headerShown: false }} component={RewardScreen} />
           <Stack.Screen name="GlossaryScreen" options={{ headerShown: false }} component={GlossaryScreen} />
           <Stack.Screen name="FavMealPlanScreen" options={{ headerShown: false }} component={FavMealPlanScreen} />
+          <Stack.Screen name="FavMindMapScreen" options={{ headerShown: false }} component={FavMindMapScreen} />
         </Stack.Navigator>
       </AuthProvider>
     </NavigationContainer>

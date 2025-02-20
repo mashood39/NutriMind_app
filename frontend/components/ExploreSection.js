@@ -12,8 +12,10 @@ const ExploreSection = ({ navigation }) => {
             setDiagrams(response.data);
         } catch (err) {
             console.error(err);
+    
         } finally {
             setLoading(false);
+
         }
     };
 
@@ -29,18 +31,18 @@ const ExploreSection = ({ navigation }) => {
                 <ActivityIndicator size="large" color="#4a90e2" className="my-4" />
             )}
 
-            <View className="flex-row flex-wrap justify-between gap-y-2">
-                {diagrams.map((diagram, index) => (
+            <View className="flex-row flex-wrap gap-x-2">
+                {diagrams.map((diagram) => (
                     <TouchableOpacity
-                        key={index}
-                        className="bg-blue-100 px-3 py-3 rounded-full w-32"
+                        key={diagram._id}
+                        className="bg-blue-100 px-3 py-3 rounded-full w-[32%] mb-2"
                         onPress={() =>
                             navigation.navigate('MindMapScreen', {
                                 id: diagram.short_id,
-                                title: diagram.url_title,
+                                title: diagram.title,
                             })
                         }
-                    >
+                    >   
                         <Text className="text-center text-sm font-bold text-blue-500">
                             {diagram.title}
                         </Text>

@@ -16,6 +16,8 @@ const FavMealPlanScreen = ({ navigation }) => {
       setMealPlans(response.data.mealPlans)
     } catch (error) {
       console.error("error in fetching the meal plan")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -26,13 +28,14 @@ const FavMealPlanScreen = ({ navigation }) => {
       setFavoriteIds(ids)
     } catch (error) {
       console.error("error in fetching the favorite meal plans")
+    } finally {
+      setLoading(false)
     }
   }
 
   useEffect(() => {
     fetchMealPlans();
     fetchFavorites();
-    setLoading(false)
   }, [])
 
   const favoriteMealPlans = mealPlans.filter((mealPlan) => favoriteIds.has(mealPlan._id))
@@ -40,7 +43,7 @@ const FavMealPlanScreen = ({ navigation }) => {
   return (
     <Layout>
       <View className='px-4 mt-2'>
-        <Text className="text-2xl font-bold mb-4 text-gray-900">Favorite Meal Plans</Text>
+        <Text className="text-lg font-bold mb-4 text-gray-900">My Favorite Meal Plans</Text>
         {loading ? (
           <ActivityIndicator size="large" color="#4a90e2" />
         ) : favoriteMealPlans.length === 0 ? (

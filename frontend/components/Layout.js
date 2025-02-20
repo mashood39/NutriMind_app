@@ -68,7 +68,7 @@ const Layout = ({ children }) => {
         <View className="flex-1">{children}</View>
 
         {/* Footer */}
-        <View className="h-20 flex-row justify-around items-center border-t border-gray-300">
+        <View className="h-20 flex-row justify-around items-center border-t border-gray-300 bg-white">
           <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
             <Image
               source={require('../assets/icons/icon_home.png')}

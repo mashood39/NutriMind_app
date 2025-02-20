@@ -1,32 +1,80 @@
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import React, { useState } from 'react';
+import { Text, View, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { WebView } from 'react-native-webview';
 import Layout from '../components/Layout';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import api from '../lib/api';
+
 
 const MindMapScreen = ({ route }) => {
-    const { id, title } = route.params;
 
+    const { id, title } = route.params;
     const [loading, setLoading] = useState(true);
+    const [isFavorite, setIsFavorite] = useState(false)
+
+    const toggleFavorite = async () => {
+        const newFavoriteState = !isFavorite
+        setIsFavorite(newFavoriteState)
+
+        try {
+            if (newFavoriteState) {
+                await api.post('/api/favorites', { itemId: id })
+                console.log("added to favorites")
+            } else {
+                await api.delete(`/api/favorites/${id}`)
+                console.log("removed from the favorites")
+            }
+        } catch (error) {
+            console.error('Error updating favorite status:', error.message);
+        }
+    };
+
+    const fetchFavorite = async () => {
+        try {
+            const response = await api.get(`/api/favorites/${id}`);
+
+            if (response.data.isFavorite === true) {
+                setIsFavorite(true)
+            }
+            else {
+                setIsFavorite(false)
+            }
+        } catch (error) {
+            console.error("Error fetching favorites:", error.message);
+            setIsFavorite(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchFavorite();
+    }, [id])
 
     return (
         <Layout>
-            <View style={styles.container}>
-                <Text style={styles.title}>{title}</Text>
+            <View className="flex-1 justify-center p-4">
+                <View className="flex-row items-center justify-between mb-4">
+                    <Text className="text-2xl font-bold text-gray-800 flex-1">{title}</Text>
+                    <Icon
+                        name={isFavorite ? "favorite" : "favorite-border"}
+                        size={24}
+                        color={isFavorite ? "red" : "black"}
+                        onPress={toggleFavorite}
+                    />
+                </View>
 
                 {loading && (
                     <ActivityIndicator
                         size="large"
                         color="#4a90e2"
-                        style={styles.loader}
+                        className="absolute top-1/2 left-1/2 -ml-6 -mt-6 z-10"
                     />
                 )}
 
                 <WebView
                     source={{ uri: `https://coggle.it/diagram/${id}/t/${title}` }}
-                    style={styles.webview}
-                    onLoadStart={() => setLoading(true)}  // Show loader when loading starts
-                    onLoadEnd={() => setLoading(false)}   // Hide loader when loading ends
-                    onError={() => setLoading(false)}     // Hide loader if there's an error
+                    onLoadStart={() => setLoading(true)}
+                    onLoadEnd={() => setLoading(false)}
+                    onError={() => setLoading(false)}
                 />
             </View>
         </Layout>
@@ -34,30 +82,3 @@ const MindMapScreen = ({ route }) => {
 };
 
 export default MindMapScreen;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center', // Center content vertically
-        // alignItems: 'center',      // Center content horizontally
-    },
-    title: {
-        fontSize: 20,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    webview: {
-        flex: 1,
-        width: '100%',
-
-    },
-    loader: {
-        zIndex: 100,
-        position: 'absolute',  // Position the loader over the WebView
-        top: '50%',            // Center vertically
-        left: '50%',           // Center horizontally
-        marginLeft: -25,       // Offset the spinner's width
-        marginTop: -25,        // Offset the spinner's height
-    },
-});
