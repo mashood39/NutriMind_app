@@ -34,10 +34,8 @@ const MealPlanScreen = ({ route }) => {
         try {
             if (newFavoriteState) {
                 await api.post('/api/favorites', { itemId: id })
-                console.log("added to favorites")
             } else {
                 await api.delete(`/api/favorites/${id}`)
-                console.log("removed from the favorites")
             }
         } catch (error) {
             console.error('Error updating favorite status:', error.message);

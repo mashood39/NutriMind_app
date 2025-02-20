@@ -16,7 +16,6 @@ const fetchDiagrams = async (req, res) => {
             },
         });
         const diagrams = response.data;
-        console.log(diagrams)
         res.json(diagrams);
     } catch (error) {
         res.status(500).send(error.message);

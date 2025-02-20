@@ -14,7 +14,6 @@ const addItemId = async (req, res) => {
         const { itemId } = req.body
         const newFavorite = new Favorite({ itemId })
         await newFavorite.save();
-        console.log("added to favorites")
         res.status(200).json({ message: 'Item added to favorites' })
     } catch (error) {
         console.error("error in adding to the favorites", error.message)
@@ -36,7 +35,6 @@ const deleteItemId = async (req, res) => {
     try {
         const { id } = req.params;
         await Favorite.findOneAndDelete({ itemId: id })
-        console.log("removed from favorites")
         res.status(200).json({ message: 'removed from favorites' })
     } catch (error) {
         res.status(500).json({ message: "error in removing from the favorites" })
